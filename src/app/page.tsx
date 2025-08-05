@@ -15,6 +15,7 @@ import {
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import CountUp from "react-countup";
 
 // Organic Sphere Component
 const OrganicSphere = ({ size, position, gradient, delay = 0 }: {
@@ -319,52 +320,78 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="gravity-subheadline mb-16">
-              Trusted by medical institutions worldwide
+            <h2 className="gravity-subheadline mb-16 text-center">
+              Proven results
             </h2>
             
-            <div className="grid md:grid-cols-2 gap-24 items-center">
-              <div>
+            {/* Statistics Cards */}
+            <div className="grid md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
+              {[
+                { number: 700, suffix: "+", label: "Medical Students", description: "Training with AI patients" },
+                { number: 100, suffix: "+", label: "AI Patients", description: "Across all specialties" },
+                { number: 1, suffix: "+", label: "Institution", description: "Trusting our platform" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  className="text-center bg-gradient-to-br from-gray-900/40 to-gray-800/40 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 + (index * 0.2) }}
+                  viewport={{ once: true }}
+                >
+                  <div className="text-5xl font-bold text-white mb-2">
+                    <CountUp 
+                      end={stat.number} 
+                      duration={2.5}
+                      delay={0.8 + (index * 0.2)}
+                      enableScrollSpy
+                      scrollSpyOnce
+                    />
+                    {stat.suffix}
+                  </div>
+                  <div className="text-lg font-medium text-white mb-2">{stat.label}</div>
+                  <div className="atmospheric-text text-sm">{stat.description}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Content and Image */}
+            <div className="grid lg:grid-cols-5 gap-16 items-center">
+              {/* Text Content - 2 columns */}
+              <div className="lg:col-span-2">
                 <p className="atmospheric-text-large mb-8">
-                  500+ virtual patients spanning all medical specialties.
-                  <br />
-                  Real-time feedback on clinical reasoning and communication.
-                  <br />
-                  Evidence-based learning backed by University of St Andrews research.
+                  Real-time feedback on clinical reasoning and communication skills.
                 </p>
                 
-                <div className="flex items-center space-x-8 mb-8">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">10,000+</div>
-                    <div className="atmospheric-text text-sm">Medical Students</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">500+</div>
-                    <div className="atmospheric-text text-sm">AI Patients</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">50+</div>
-                    <div className="atmospheric-text text-sm">Institutions</div>
-                  </div>
-                </div>
+                <p className="atmospheric-text mb-8">
+                  Evidence-based learning methodology developed through University of St Andrews research partnerships.
+                </p>
                 
                 <Link href="/academic" className="atmospheric-text hover:text-white inline-flex items-center motion-natural">
-                  Explore our research
+                  View our research
                   <ExternalLink className="w-4 h-4 ml-2" />
                 </Link>
               </div>
               
-              {/* Analytics Interface Screenshot */}
-              <div className="relative screenshot-container">
-                <div className="relative rounded-2xl overflow-hidden border border-gray-600 shadow-xl max-w-2xl mx-auto">
-                  <Image 
-                    src="/shots/analytics.png" 
-                    alt="Simpatient AI Analytics and Feedback Dashboard" 
-                    width={800} 
-                    height={500}
-                    className="w-full h-auto"
-                  />
-                </div>
+              {/* Analytics Interface Screenshot - 3 columns */}
+              <div className="lg:col-span-3">
+                <motion.div 
+                  className="relative screenshot-container"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.2, delay: 0.8 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="relative rounded-2xl overflow-hidden border border-gray-600 shadow-xl">
+                    <Image 
+                      src="/shots/analytics.png" 
+                      alt="Simpatient AI Analytics and Feedback Dashboard" 
+                      width={800} 
+                      height={500}
+                      className="w-full h-auto"
+                    />
+                  </div>
+                </motion.div>
               </div>
             </div>
           </motion.div>
