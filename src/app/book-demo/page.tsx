@@ -89,7 +89,7 @@ export default function BookDemoPage() {
         >
           <div className="content-width flex justify-between items-center py-8">
             <Link href="/" className="atmospheric-text-large font-medium tracking-tight">
-              TIPS AI
+              Simpatient AI
             </Link>
             
             <Button
@@ -108,59 +108,18 @@ export default function BookDemoPage() {
             
             {/* Hero Section */}
             <motion.div
-              className="text-center mb-16"
+              className="text-center mb-12"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
-              <div className="flex items-center justify-center mb-6">
-                <Calendar className="w-12 h-12 text-accent-purple mr-4" />
-                <h1 className="gravity-headline">
-                  Book your personal
-                  <br />
-                  TIPS AI demo
-                </h1>
-              </div>
+              <h1 className="gravity-headline mb-8">
+                Book your demo
+              </h1>
               
-              <p className="atmospheric-text-large max-w-3xl mx-auto mb-12">
-                Experience how AI patients can transform your medical training. 
-                Our team will walk you through personalized scenarios tailored to your learning goals.
+              <p className="atmospheric-text-large max-w-2xl mx-auto">
+                Experience Simpatient AI with a personalized 30-minute demo
               </p>
-
-              {/* Features Grid */}
-              <div className="grid md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
-                {[
-                  {
-                    icon: Clock,
-                    title: "30-Minute Session",
-                    description: "Focused demo covering all three interaction modes"
-                  },
-                  {
-                    icon: Users,
-                    title: "Personal Guidance",
-                    description: "One-on-one walkthrough with our medical education experts"
-                  },
-                  {
-                    icon: Calendar,
-                    title: "Flexible Scheduling",
-                    description: "Choose a time that works with your busy schedule"
-                  }
-                ].map((feature, index) => (
-                  <motion.div
-                    key={feature.title}
-                    className="text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 + (index * 0.2) }}
-                  >
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                      <feature.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="gravity-subheadline text-lg mb-2">{feature.title}</h3>
-                    <p className="atmospheric-text text-sm">{feature.description}</p>
-                  </motion.div>
-                ))}
-              </div>
             </motion.div>
 
             {/* Calendly Widget Container */}
@@ -185,36 +144,16 @@ export default function BookDemoPage() {
               </div>
             </motion.div>
 
-            {/* Bottom CTA */}
+            {/* Simple Contact */}
             <motion.div
               className="text-center mb-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.4 }}
             >
-              <p className="atmospheric-text mb-8">
-                Questions about TIPS AI? Get in touch with our team.
+              <p className="atmospheric-text text-sm">
+                Questions? <Link href="mailto:hello@simpatient.co.uk" className="text-white hover:opacity-80 motion-natural">Email us</Link>
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <Button
-                  as={Link}
-                  href="mailto:hello@simpatient.co.uk"
-                  size="lg"
-                  variant="ghost"
-                  className="text-white hover:bg-white/10 motion-natural px-8 py-6 rounded-full"
-                >
-                  Email Us
-                </Button>
-                <Button
-                  as={Link}
-                  href="/about"
-                  size="lg"
-                  variant="ghost"
-                  className="text-white hover:bg-white/10 motion-natural px-8 py-6 rounded-full"
-                >
-                  Meet the Team
-                </Button>
-              </div>
             </motion.div>
 
           </div>

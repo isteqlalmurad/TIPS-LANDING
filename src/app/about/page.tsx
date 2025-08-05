@@ -48,7 +48,7 @@ export default function AboutPage() {
       id: 1,
       name: "Dr Andrew O'Malley",
       role: "Co-Founder & Chief Technology Officer",
-      bio: "Dr Andrew O'Malley is a visionary technologist with extensive experience in AI and medical education. He leads the technical development of TIPS AI&apos;s innovative virtual patient simulation platform.",
+      bio: "Dr Andrew O'Malley is a visionary technologist with extensive experience in AI and medical education. He leads the technical development of Simpatient AI&apos;s innovative virtual patient simulation platform.",
       expertise: ["AI Development", "Medical Simulation", "Educational Technology", "System Architecture"],
       photo: "/profiles/Dr Andrew O'Malley.jpeg",
       location: "Scotland, UK",
@@ -80,7 +80,7 @@ export default function AboutPage() {
       id: 3,
       name: "Dr Sandhya Duggal",
       role: "Chief Medical Officer & Clinical Lead",
-      bio: "Dr Sandhya Duggal brings extensive clinical experience and medical education expertise to TIPS AI. She ensures our virtual patients reflect real-world clinical scenarios and maintains the highest standards of medical accuracy.",
+      bio: "Dr Sandhya Duggal brings extensive clinical experience and medical education expertise to Simpatient AI. She ensures our virtual patients reflect real-world clinical scenarios and maintains the highest standards of medical accuracy.",
       expertise: ["Clinical Medicine", "Medical Education", "Curriculum Development", "Quality Assurance"],
       photo: "/profiles/Dr Sandhya Duggal.jpeg",
       location: "Scotland, UK",
@@ -152,7 +152,7 @@ export default function AboutPage() {
               <div className="w-8 h-8 bg-accent-purple rounded-lg flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-primary-text">TIPS AI</span>
+              <span className="text-xl font-bold text-primary-text">Simpatient AI</span>
             </div>
           </div>
         </div>
@@ -170,7 +170,7 @@ export default function AboutPage() {
             <div className="flex items-center justify-center mb-6">
               <Users className="w-12 h-12 text-accent-purple mr-4" />
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-text">
-                About TIPS AI
+                About Simpatient AI
               </h1>
             </div>
             
@@ -212,7 +212,7 @@ export default function AboutPage() {
               Meet Our Team
             </h2>
             <p className="text-xl text-secondary-text max-w-3xl mx-auto">
-              The visionary leaders behind TIPS AI&apos;s innovative medical education platform
+              The visionary leaders behind Simpatient AI&apos;s innovative medical education platform
             </p>
           </motion.div>
 
@@ -330,7 +330,7 @@ export default function AboutPage() {
               Our Values
             </h2>
             <p className="text-xl text-secondary-text max-w-3xl mx-auto">
-              The principles that guide everything we do at TIPS AI
+              The principles that guide everything we do at Simpatient AI
             </p>
           </motion.div>
 

@@ -9,12 +9,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "TIPS AI - Medical Training Simulation Platform",
+  title: "Simpatient AI - Medical Training Simulation Platform",
   description: "Practice with AI-powered virtual patients using interactive avatars. Three modes: text chat, audio conversations, and video interactions for medical education.",
   keywords: "medical training, AI patients, virtual patients, medical education, simulation, healthcare training",
-  authors: [{ name: "TIPS AI" }],
+  authors: [{ name: "Simpatient AI" }],
   openGraph: {
-    title: "TIPS AI - Medical Training Simulation Platform",
+    title: "Simpatient AI - Medical Training Simulation Platform",
     description: "Practice with AI-powered virtual patients using interactive avatars",
     type: "website",
   },

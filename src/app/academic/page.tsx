@@ -139,7 +139,7 @@ export default function AcademicPage() {
               <div className="w-8 h-8 bg-accent-purple rounded-lg flex items-center justify-center">
                 <GraduationCap className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-primary-text">TIPS AI</span>
+              <span className="text-xl font-bold text-primary-text">Simpatient AI</span>
             </div>
           </div>
         </div>
@@ -335,7 +335,7 @@ export default function AcademicPage() {
                 className="bg-accent-purple text-white font-semibold px-8 py-3"
                 onClick={() => router.push('/')}
               >
-                Explore TIPS AI Platform
+                Explore Simpatient AI Platform
               </Button>
               <Button 
                 size="lg" 

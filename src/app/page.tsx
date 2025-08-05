@@ -50,7 +50,7 @@ const Navigation = () => (
   >
     <div className="content-width flex justify-between items-center py-8">
       <Link href="/" className="atmospheric-text-large font-medium tracking-tight">
-        TIPS AI
+        Simpatient AI
       </Link>
       
       <div className="flex items-center space-x-8">
@@ -114,17 +114,8 @@ export default function LandingPage() {
             style={{ y: textY }}
             className="min-h-screen flex flex-col justify-start pt-48"
           >
-            <motion.p
-              className="atmospheric-text mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              Medical training simulation platform
-            </motion.p>
-            
             <motion.h1
-              className="gravity-headline mb-12"
+              className="gravity-headline mb-8"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.2 }}
@@ -134,8 +125,17 @@ export default function LandingPage() {
               communication training
             </motion.h1>
             
+            <motion.p
+              className="atmospheric-text-large mb-12 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+            >
+              Join 700+ future doctors
+            </motion.p>
+            
             <motion.div
-              className="flex items-center space-x-6"
+              className="flex items-center space-x-6 mb-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
@@ -147,8 +147,27 @@ export default function LandingPage() {
                 className="bg-white text-black hover:bg-gray-100 motion-natural px-8 py-6 rounded-full font-medium"
                 startContent={<Play className="w-5 h-5" />}
               >
-                Experience TIPS AI
+                Experience Simpatient AI
               </Button>
+            </motion.div>
+
+            {/* University of St Andrews Backing */}
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 2.2 }}
+            >
+              <p className="atmospheric-text text-sm mb-4">Backed by University of St Andrews</p>
+              <div className="flex justify-center">
+                <Image
+                  src="/shots/st anderws uni.png"
+                  alt="University of St Andrews"
+                  width={120}
+                  height={60}
+                  className="opacity-70 hover:opacity-100 motion-natural"
+                />
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -172,7 +191,7 @@ export default function LandingPage() {
             viewport={{ once: true }}
           >
             <h2 className="gravity-subheadline mb-8">
-              See TIPS AI in action
+              See Simpatient AI in action
             </h2>
             <p className="atmospheric-text-large max-w-2xl mx-auto">
               Watch how our platform transforms medical training through immersive AI interactions
@@ -219,7 +238,7 @@ export default function LandingPage() {
             className="mb-32"
           >
             <p className="atmospheric-text-large mb-16">
-              TIPS AI transforms medical education through three immersive interaction modes.
+              Simpatient AI transforms medical education through three immersive interaction modes.
               <br />
               Each designed to build clinical confidence safely.
             </p>
@@ -236,7 +255,7 @@ export default function LandingPage() {
             <div className="relative rounded-3xl overflow-hidden border border-gray-700 shadow-2xl max-w-5xl mx-auto">
               <Image 
                 src="/shots/main_display.png" 
-                alt="TIPS AI Main Dashboard Interface" 
+                alt="Simpatient AI Main Dashboard Interface" 
                 width={1200} 
                 height={600}
                 className="w-full h-auto"
@@ -250,17 +269,17 @@ export default function LandingPage() {
             {[
               {
                 icon: MessageCircle,
-                mode: "Text Conversations",
+                mode: "Text Chat",
                 description: "Practice diagnostic questioning through natural text exchanges with AI patients"
               },
               {
                 icon: Mic,
-                mode: "Voice Interactions", 
+                mode: "Audio Chat", 
                 description: "Develop communication skills through realistic audio conversations"
               },
               {
                 icon: Video,
-                mode: "Avatar Sessions",
+                mode: "Video Chat",
                 description: "Experience immersive consultations with lifelike AI patient avatars"
               }
             ].map((item, index) => (
@@ -340,7 +359,7 @@ export default function LandingPage() {
                 <div className="relative rounded-2xl overflow-hidden border border-gray-600 shadow-xl max-w-2xl mx-auto">
                   <Image 
                     src="/shots/analytics.png" 
-                    alt="TIPS AI Analytics and Feedback Dashboard" 
+                    alt="Simpatient AI Analytics and Feedback Dashboard" 
                     width={800} 
                     height={500}
                     className="w-full h-auto"
@@ -370,7 +389,7 @@ export default function LandingPage() {
             className="text-center mb-24"
           >
             <h2 className="gravity-subheadline mb-12">
-              TIPS AI adapts to your learning journey
+              Simpatient AI adapts to your learning journey
             </h2>
             
             <p className="atmospheric-text-large max-w-3xl mx-auto mb-16">
@@ -384,7 +403,7 @@ export default function LandingPage() {
               <div className="relative rounded-3xl overflow-hidden border border-gray-600 shadow-2xl max-w-5xl mx-auto">
                 <Image 
                   src="/shots/personalisation.png" 
-                  alt="TIPS AI Personalized Learning Interface" 
+                  alt="Simpatient AI Personalized Learning Interface" 
                   width={1200} 
                   height={600}
                   className="w-full h-auto"
@@ -429,7 +448,7 @@ export default function LandingPage() {
       <footer className="content-width py-16 border-t border-gray-800">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
           <div>
-            <p className="atmospheric-text-large font-medium mb-2">TIPS AI</p>
+            <p className="atmospheric-text-large font-medium mb-2">Simpatient AI</p>
             <p className="atmospheric-text text-sm">Transforming medical education through AI</p>
           </div>
           
@@ -448,7 +467,7 @@ export default function LandingPage() {
         
         <div className="mt-12 pt-8 border-t border-gray-800 text-center">
           <p className="atmospheric-text text-sm">
-            © 2025 TIPS AI. All rights reserved.
+            © 2025 Simpatient AI. All rights reserved.
           </p>
         </div>
       </footer>

@@ -18,6 +18,9 @@
   --color-gradient-cool-start: #667eea;
   --color-gradient-cool-end: #764ba2;
   
+  /* UI Accent Colors */
+  --accent-purple: #8b5cf6;
+  
   /* Spacing Rhythm - 8px Base Unit System */
   --space-micro: 4px;    /* 0.25rem */
   --space-xs: 8px;       /* 0.5rem */
@@ -112,7 +115,8 @@ html {
   font-size: var(--text-base);
   font-weight: 400;
   line-height: 1.7;
-  color: var(--color-moonlight-silver);
+  color: var(--color-starlight-white);
+  opacity: 0.9;
   font-family: var(--font-inter), sans-serif;
 }
 
@@ -120,7 +124,8 @@ html {
   font-size: var(--text-lg);
   font-weight: 400;
   line-height: 1.6;
-  color: var(--color-celestial-blue);
+  color: var(--color-starlight-white);
+  opacity: 0.95;
   font-family: var(--font-inter), sans-serif;
 }
 
