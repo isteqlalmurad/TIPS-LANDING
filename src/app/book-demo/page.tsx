@@ -118,7 +118,7 @@ export default function BookDemoPage() {
               </h1>
               
               <p className="atmospheric-text-large max-w-2xl mx-auto">
-                Experience Simpatient AI with a personalized 30-minute demo
+                Experience Simpatient AI with a personalized 40-minute demo
               </p>
             </motion.div>
 

@@ -102,6 +102,15 @@ html {
   margin: 0;
 }
 
+.gravity-headline-smaller {
+  font-size: clamp(calc(var(--text-3xl) * 0.90), calc(8vw * 0.90), calc(var(--text-5xl) * 0.90));
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-family: Georgia, 'Times New Roman', serif;
+  margin: 0;
+}
+
 .gravity-subheadline {
   font-size: clamp(var(--text-xl), 4vw, var(--text-2xl));
   font-weight: 400;

@@ -113,30 +113,35 @@ export default function LandingPage() {
         <div className="content-width relative z-10">
           <motion.div
             style={{ y: textY }}
-            className="min-h-screen flex flex-col justify-start pt-48"
+            className="min-h-screen flex flex-col justify-start pt-40 items-center"
           >
-            <motion.h1
-              className="gravity-headline mb-8"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.2 }}
-            >
-              AI Patients for medical
-              <br />
-              communication training
-            </motion.h1>
-            
+            {/* Top subtitle - centered */}
             <motion.p
-              className="atmospheric-text-large mb-12 text-center"
+              className="atmospheric-text-large mb-4 text-center max-w-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
             >
               Join 700+ future doctors
             </motion.p>
+
+            {/* Main title - 5% smaller */}
+            <motion.h1
+              className="gravity-headline-smaller mb-16 text-center"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.2 }}
+            >
+              Building better communication
+              <br />
+              skills with AI Patients
+            </motion.h1>
             
+            <br />
+
+            {/* Button - centered with equal spacing */}
             <motion.div
-              className="flex items-center space-x-6 mb-16"
+              className="flex justify-center mb-12"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
@@ -152,9 +157,9 @@ export default function LandingPage() {
               </Button>
             </motion.div>
 
-            {/* University of St Andrews Backing */}
+            {/* University of St Andrews Backing - centered */}
             <motion.div
-              className="text-center"
+              className="text-center max-w-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 2.2 }}
@@ -320,78 +325,77 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="gravity-subheadline mb-16 text-center">
-              Proven results
+            <h2 className="gravity-subheadline mb-16">
+              Trusted by the future of medicine
             </h2>
+            <br />
             
-            {/* Statistics Cards */}
-            <div className="grid md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
-              {[
-                { number: 700, suffix: "+", label: "Medical Students", description: "Training with AI patients" },
-                { number: 100, suffix: "+", label: "AI Patients", description: "Across all specialties" },
-                { number: 1, suffix: "+", label: "Institution", description: "Trusting our platform" }
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  className="text-center bg-gradient-to-br from-gray-900/40 to-gray-800/40 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 + (index * 0.2) }}
-                  viewport={{ once: true }}
-                >
-                  <div className="text-5xl font-bold text-white mb-2">
-                    <CountUp 
-                      end={stat.number} 
-                      duration={2.5}
-                      delay={0.8 + (index * 0.2)}
-                      enableScrollSpy
-                      scrollSpyOnce
-                    />
-                    {stat.suffix}
-                  </div>
-                  <div className="text-lg font-medium text-white mb-2">{stat.label}</div>
-                  <div className="atmospheric-text text-sm">{stat.description}</div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Content and Image */}
-            <div className="grid lg:grid-cols-5 gap-16 items-center">
-              {/* Text Content - 2 columns */}
-              <div className="lg:col-span-2">
+            <div className="grid md:grid-cols-2 gap-24 items-center">
+              <div>
                 <p className="atmospheric-text-large mb-8">
-                  Real-time feedback on clinical reasoning and communication skills.
+                  100+ virtual patients spanning all medical specialties.
+                  <br />
+                  Real-time feedback on clinical reasoning and communication.
+                  <br />
+                  Evidence-based learning backed by University of St Andrews research.
                 </p>
                 
-                <p className="atmospheric-text mb-8">
-                  Evidence-based learning methodology developed through University of St Andrews research partnerships.
-                </p>
+                <div className="flex items-center space-x-8 mb-8">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-white mb-2">
+                      <CountUp 
+                        end={700} 
+                        duration={2.5}
+                        delay={0.5}
+                        enableScrollSpy
+                        scrollSpyOnce
+                      />+
+                    </div>
+                    <div className="atmospheric-text text-sm">Medical Students</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-white mb-2">
+                      <CountUp 
+                        end={100} 
+                        duration={2.5}
+                        delay={0.7}
+                        enableScrollSpy
+                        scrollSpyOnce
+                      />+
+                    </div>
+                    <div className="atmospheric-text text-sm">AI Patients</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-white mb-2">
+                      <CountUp 
+                        end={1} 
+                        duration={2.5}
+                        delay={0.9}
+                        enableScrollSpy
+                        scrollSpyOnce
+                      />+
+                    </div>
+                    <div className="atmospheric-text text-sm">Institution</div>
+                  </div>
+                </div>
                 
                 <Link href="/academic" className="atmospheric-text hover:text-white inline-flex items-center motion-natural">
-                  View our research
+                  Explore our research
                   <ExternalLink className="w-4 h-4 ml-2" />
                 </Link>
               </div>
               
-              {/* Analytics Interface Screenshot - 3 columns */}
-              <div className="lg:col-span-3">
-                <motion.div 
-                  className="relative screenshot-container"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.2, delay: 0.8 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="relative rounded-2xl overflow-hidden border border-gray-600 shadow-xl">
-                    <Image 
-                      src="/shots/analytics.png" 
-                      alt="Simpatient AI Analytics and Feedback Dashboard" 
-                      width={800} 
-                      height={500}
-                      className="w-full h-auto"
-                    />
-                  </div>
-                </motion.div>
+              {/* Analytics Interface Screenshot */}
+              <div className="relative screenshot-container">
+                <div className="relative rounded-2xl overflow-hidden border border-gray-600 shadow-xl max-w-2xl mx-auto">
+                  <Image 
+                    src="/shots/analytics.png" 
+                    alt="Simpatient AI Analytics and Feedback Dashboard" 
+                    width={800} 
+                    height={500}
+                    className="w-full h-auto"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
@@ -473,10 +477,18 @@ export default function LandingPage() {
 
       {/* Minimal Footer */}
       <footer className="content-width py-16 border-t border-gray-800">
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
+        <div className="flex flex-col md:flex-row justify-between items-start space-y-8 md:space-y-0">
           <div>
             <p className="atmospheric-text-large font-medium mb-2">Simpatient AI</p>
-            <p className="atmospheric-text text-sm">Transforming medical education through AI</p>
+            <p className="atmospheric-text text-sm mb-4">Transforming medical education through AI</p>
+            <div className="atmospheric-text text-sm">
+              <p className="mb-2">Email: <Link href="mailto:hello@simpatient.co.uk" className="hover:text-white motion-natural">hello@simpatient.co.uk</Link></p>
+              <p className="leading-relaxed">
+                Address: School of Medicine<br />
+                University of St Andrews<br />
+                N Haugh, St Andrews KY16 9TF
+              </p>
+            </div>
           </div>
           
           <div className="flex items-center space-x-8">
@@ -485,9 +497,6 @@ export default function LandingPage() {
             </Link>
             <Link href="/about" className="atmospheric-text hover:text-white motion-natural">
               About
-            </Link>
-            <Link href="mailto:hello@tipsai.com" className="atmospheric-text hover:text-white motion-natural">
-              Contact
             </Link>
           </div>
         </div>

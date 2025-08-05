@@ -47,65 +47,65 @@ export default function AboutPage() {
     {
       id: 1,
       name: "Dr Andrew O'Malley",
-      role: "Co-Founder & Chief Technology Officer",
-      bio: "Dr Andrew O'Malley is a visionary technologist with extensive experience in AI and medical education. He leads the technical development of Simpatient AI&apos;s innovative virtual patient simulation platform.",
-      expertise: ["AI Development", "Medical Simulation", "Educational Technology", "System Architecture"],
+      role: "Project Lead & Entrepreneurial Lead",
+      bio: "Andrew is a Senior Lecturer in the School of Medicine and Deputy Programme Director of the Scottish Graduate Entry Medical Programme (ScotGEM). As Deputy Director of Teaching, he brings expertise in anatomy, forensic anthropology, and medical education. Andrew leads case-based learning, medical ethics, and generative AI education initiatives.",
+      expertise: ["Medical Education", "Anatomy & Forensic Anthropology", "Case-Based Learning", "Medical Ethics", "Generative AI"],
       photo: "/profiles/Dr Andrew O'Malley.jpeg",
       location: "Scotland, UK",
-      email: "andrew@tipsai.com",
+      email: "andrew@simpatient.ai",
       linkedin: "#",
       achievements: [
-        "10+ years in EdTech",
-        "AI Research Pioneer",
-        "Medical Education Innovator"
+        "Deputy Programme Director ScotGEM",
+        "Deputy Director of Teaching",
+        "Medical Education Specialist"
       ]
     },
     {
       id: 2,
       name: "Mr Sayed Murad",
-      role: "Co-Founder & Chief Executive Officer",
-      bio: "Sayed brings deep expertise in healthcare innovation and business strategy. He drives the vision of transforming medical education through AI-powered interactive learning experiences.",
-      expertise: ["Healthcare Innovation", "Business Strategy", "Medical Education", "Product Leadership"],
+      role: "Principal Software Engineer",
+      bio: "Sayed Murad is an AI engineer and former United Nations Interpreter focused on language equity and breaking communication barriers worldwide. With experience in human-centred AI design and a background in EdTech and MedTech research, he brings practical expertise in building socially impactful AI tools.",
+      expertise: ["AI Engineering", "Human-Centred AI Design", "EdTech & MedTech", "Language Equity", "Communication Barriers"],
       photo: "/profiles/Mr Sayed Murad.png",
       location: "Scotland, UK", 
-      email: "sayed@tipsai.com",
+      email: "sayed@simpatient.ai",
       linkedin: "#",
       achievements: [
-        "Healthcare Tech Leader",
-        "Medical Education Expert",
-        "Strategic Visionary"
+        "Former UN Interpreter",
+        "AI Engineering Expert",
+        "Social Impact Technology"
       ]
     },
     {
       id: 3,
       name: "Dr Sandhya Duggal",
-      role: "Chief Medical Officer & Clinical Lead",
-      bio: "Dr Sandhya Duggal brings extensive clinical experience and medical education expertise to Simpatient AI. She ensures our virtual patients reflect real-world clinical scenarios and maintains the highest standards of medical accuracy.",
-      expertise: ["Clinical Medicine", "Medical Education", "Curriculum Development", "Quality Assurance"],
+      role: "Lecturer in Medical Sociology & Communication Skills",
+      bio: "Dr Sandhya Duggal is a Lecturer in Medical Sociology and Communication Skills with over ten years' experience conducting research within the fields of Health, Higher Education and Social Care. She brings extensive expertise in medical communication and social aspects of healthcare.",
+      expertise: ["Medical Sociology", "Communication Skills", "Health Research", "Higher Education", "Social Care"],
       photo: "/profiles/Dr Sandhya Duggal.jpeg",
       location: "Scotland, UK",
-      email: "sandhya@tipsai.com",
+      email: "sandhya@simpatient.ai",
       linkedin: "#",
       achievements: [
-        "15+ years Clinical Experience",
-        "Medical Education Specialist",
-        "Clinical Quality Expert"
+        "10+ years Health Research",
+        "Medical Communication Expert",
+        "Social Care Specialist"
       ]
     },
     {
       id: 4,
       name: "Dr Xining Wang",
-      role: "Head of AI Research & Development",
-      bio: "Dr Xining Wang leads our AI research initiatives, developing cutting-edge algorithms that power our virtual patient interactions. Her work focuses on natural language processing and conversational AI for medical education.",
-      expertise: ["Artificial Intelligence", "Natural Language Processing", "Machine Learning", "Research & Development"],
+      role: "Post-Doc Researcher & Evaluation Lead",
+      bio: "Dr Xining Wang is a Post-Doc Researcher leading our initial evaluations of the Simpatient AI prototype. She brings extensive expertise in evaluating human-computer interactions and Technology Enhanced Learning (TEL), ensuring our platform meets the highest standards of educational effectiveness.",
+      expertise: ["Human-Computer Interaction", "Technology Enhanced Learning", "Research Evaluation", "Educational Technology", "User Experience"],
       photo: "/profiles/Dr Xining Wang.webp",
       location: "Scotland, UK",
-      email: "xining@tipsai.com",
+      email: "xining@simpatient.ai",
       linkedin: "#",
       achievements: [
-        "PhD in AI/Machine Learning",
-        "Published AI Researcher",
-        "Conversational AI Expert"
+        "HCI Evaluation Expert",
+        "TEL Research Specialist",
+        "Educational Technology Researcher"
       ]
     }
   ];
@@ -389,7 +389,7 @@ export default function AboutPage() {
                 variant="bordered" 
                 className="border-accent-purple text-accent-purple font-semibold px-8 py-3"
                 as={Link}
-                href="mailto:hello@tipsai.com"
+                href="/book-demo"
               >
                 Get in Touch
               </Button>
