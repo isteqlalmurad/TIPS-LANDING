@@ -205,6 +205,16 @@ html {
   transition: all 0.6s var(--ease-natural);
 }
 
+/* Calendly Widget Styling */
+.calendly-inline-widget {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.calendly-inline-widget iframe {
+  border-radius: 16px;
+}
+
 .motion-entrance {
   transition: all 0.8s var(--ease-entrance);
 }

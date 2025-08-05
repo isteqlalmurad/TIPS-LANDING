@@ -141,6 +141,8 @@ export default function LandingPage() {
               transition={{ duration: 0.8, delay: 1.8 }}
             >
               <Button
+                as={Link}
+                href="/book-demo"
                 size="lg"
                 className="bg-white text-black hover:bg-gray-100 motion-natural px-8 py-6 rounded-full font-medium"
                 startContent={<Play className="w-5 h-5" />}
@@ -398,6 +400,9 @@ export default function LandingPage() {
               viewport={{ once: true }}
             >
               <Button
+                as={Link}
+                href="https://app.simpatient.co.uk"
+                target="_blank"
                 size="lg"
                 className="bg-white text-black hover:bg-gray-100 motion-natural px-12 py-6 rounded-full font-medium"
                 endContent={<ArrowRight className="w-5 h-5" />}
@@ -406,12 +411,14 @@ export default function LandingPage() {
               </Button>
               
               <Button
+                as={Link}
+                href="/book-demo"
                 size="lg"
                 variant="ghost"
                 className="text-white hover:bg-white/10 motion-natural px-8 py-6 rounded-full"
                 startContent={<Play className="w-5 h-5" />}
               >
-                Watch Demo
+                Book a Personal Demo
               </Button>
             </motion.div>
           </motion.div>
