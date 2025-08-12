@@ -10,10 +10,12 @@ import {
   MessageCircle,
   Mic,
   Video,
-  ExternalLink
+  ExternalLink,
+  Menu,
+  X
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import CountUp from "react-countup";
 
@@ -41,54 +43,108 @@ const OrganicSphere = ({ size, position, gradient, delay = 0 }: {
   />
 );
 
-// Navigation Component - Minimal & Atmospheric  
-const Navigation = () => (
-  <motion.nav 
-    className="fixed top-0 w-full z-50 mix-blend-mode-difference"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 1, delay: 0.5 }}
-  >
-    <div className="content-width flex justify-between items-center py-8">
-    <Link href="/" className="atmospheric-text-large font-medium tracking-tight flex items-center space-x-0.5">
-  <Image
-    src="/logo/SimLogo.png" // or "/logo/SimLogoWhite.png" if you upload the new one
-    alt="Simpatient Logo"
-    width={50}
-    height={50}
-    className="inline-block"
-    priority
-  />
-  <span>Simpatient</span>
-</Link>
-      
-      <div className="flex items-center space-x-8">
-        <Link 
-          href="/academic" 
-          className="atmospheric-text hover:text-white motion-natural"
-        >
-          Research
+// Navigation Component - Responsive with Mobile Menu
+const Navigation = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  return (
+    <motion.nav 
+      className="fixed top-0 w-full z-50 mix-blend-mode-difference"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 0.5 }}
+    >
+      <div className="content-width flex justify-between items-center py-4 sm:py-8">
+        {/* Logo */}
+        <Link href="/" className="atmospheric-text-large font-medium tracking-tight flex items-center space-x-0.5">
+          <Image
+            src="/logo/SimLogo.png"
+            alt="Simpatient Logo"
+            width={40}
+            height={40}
+            className="inline-block sm:w-[50px] sm:h-[50px]"
+            priority
+          />
+          <span className="text-lg sm:text-xl">Simpatient</span>
         </Link>
-        <Link 
-          href="/about" 
-          className="atmospheric-text hover:text-white motion-natural"
+        
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-6">
+          <Link 
+            href="/academic" 
+            className="atmospheric-text hover:text-white motion-natural"
+          >
+            Research
+          </Link>
+          <Link 
+            href="/about" 
+            className="atmospheric-text hover:text-white motion-natural"
+          >
+            About
+          </Link>
+          <Button
+            as={Link}
+            href="https://app.simpatient.co.uk"
+            target="_blank"
+            variant="ghost"
+            size="sm"
+            className="atmospheric-text hover:text-white motion-natural px-4 py-2"
+          >
+            Login
+          </Button>
+        </div>
+        
+        {/* Mobile Hamburger Menu */}
+        <button
+          className="md:hidden text-white p-2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
         >
-          About
-        </Link>
-        <Button
-          as={Link}
-          href="https://app.simpatient.co.uk"
-          target="_blank"
-          variant="ghost"
-          size="sm"
-          className="atmospheric-text hover:text-white motion-natural"
-        >
-          Login
-        </Button>
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
-    </div>
-  </motion.nav>
-);
+      
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <motion.div
+          className="md:hidden fixed inset-0 top-20 bg-black/95 backdrop-blur-md"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="flex flex-col items-center justify-start pt-12 space-y-8">
+            <Link 
+              href="/academic" 
+              className="atmospheric-text-large hover:text-white motion-natural"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Research
+            </Link>
+            <Link 
+              href="/about" 
+              className="atmospheric-text-large hover:text-white motion-natural"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+            </Link>
+            <Button
+              as={Link}
+              href="https://app.simpatient.co.uk"
+              target="_blank"
+              variant="ghost"
+              size="lg"
+              className="bg-white text-black hover:bg-gray-100 motion-natural px-8 py-4 rounded-full font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Login
+            </Button>
+          </div>
+        </motion.div>
+      )}
+    </motion.nav>
+  );
+};
 
 export default function LandingPage() {
   const containerRef = useRef(null);
@@ -121,7 +177,7 @@ export default function LandingPage() {
         <div className="content-width relative z-10">
           <motion.div
             style={{ y: textY }}
-            className="min-h-screen flex flex-col justify-start pt-40 items-center"
+            className="min-h-screen flex flex-col justify-start pt-32 sm:pt-40 items-center px-4"
           >
             {/* Top subtitle - centered */}
             <motion.p
@@ -135,21 +191,21 @@ export default function LandingPage() {
 
             {/* Main title - 5% smaller */}
             <motion.h1
-              className="gravity-headline-smaller mb-16 text-center"
+              className="gravity-headline-smaller mb-8 sm:mb-16 text-center px-4"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.2 }}
             >
               Building better communication
-              <br />
-              skills with AI Patients
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>skills with AI Patients
             </motion.h1>
             
             <br />
 
             {/* Button - centered with equal spacing */}
             <motion.div
-              className="flex justify-center mb-12"
+              className="flex justify-center mb-8 sm:mb-12 px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
@@ -158,10 +214,11 @@ export default function LandingPage() {
                 as={Link}
                 href="/book-demo"
                 size="lg"
-                className="bg-white text-black hover:bg-gray-100 motion-natural px-8 py-6 rounded-full font-medium"
-                startContent={<Play className="w-5 h-5" />}
+                className="bg-white text-black hover:bg-gray-100 motion-natural px-6 sm:px-8 py-4 sm:py-6 rounded-full font-medium text-sm sm:text-base"
+                startContent={<Play className="w-4 h-4 sm:w-5 sm:h-5" />}
               >
-                Experience Simpatient AI
+                <span className="hidden sm:inline">Experience Simpatient AI</span>
+                <span className="sm:hidden">Try Simpatient AI</span>
               </Button>
             </motion.div>
 
@@ -279,7 +336,7 @@ export default function LandingPage() {
           </motion.div>
 
           {/* Interaction Modes */}
-          <div className="grid md:grid-cols-3 gap-16 mb-32">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 md:gap-16 mb-16 sm:mb-24 md:mb-32 px-4">
             {[
               {
                 icon: MessageCircle,
@@ -338,7 +395,7 @@ export default function LandingPage() {
             </h2>
             <br />
             
-            <div className="grid md:grid-cols-2 gap-24 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16 md:gap-24 items-center">
               <div>
                 <p className="atmospheric-text-large mb-8">
                   100+ virtual patients spanning all medical specialties.
@@ -348,7 +405,7 @@ export default function LandingPage() {
                   Evidence-based learning backed by University of St Andrews research.
                 </p>
                 
-                <div className="flex items-center space-x-8 mb-8">
+                <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white mb-2">
                       <CountUp 
@@ -451,7 +508,7 @@ export default function LandingPage() {
             </div>
             
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
+              className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 px-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -462,8 +519,8 @@ export default function LandingPage() {
                 href="https://app.simpatient.co.uk"
                 target="_blank"
                 size="lg"
-                className="bg-white text-black hover:bg-gray-100 motion-natural px-12 py-6 rounded-full font-medium"
-                endContent={<ArrowRight className="w-5 h-5" />}
+                className="bg-white text-black hover:bg-gray-100 motion-natural px-8 sm:px-12 py-4 sm:py-6 rounded-full font-medium text-sm sm:text-base w-full sm:w-auto"
+                endContent={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
               >
                 Start Learning Today
               </Button>
@@ -473,10 +530,11 @@ export default function LandingPage() {
                 href="/book-demo"
                 size="lg"
                 variant="ghost"
-                className="text-white hover:bg-white/10 motion-natural px-8 py-6 rounded-full"
-                startContent={<Play className="w-5 h-5" />}
+                className="text-white hover:bg-white/10 motion-natural px-6 sm:px-8 py-4 sm:py-6 rounded-full text-sm sm:text-base w-full sm:w-auto"
+                startContent={<Play className="w-4 h-4 sm:w-5 sm:h-5" />}
               >
-                Book a Personal Demo
+                <span className="hidden sm:inline">Book a Personal Demo</span>
+                <span className="sm:hidden">Book Demo</span>
               </Button>
             </motion.div>
           </motion.div>
@@ -485,7 +543,7 @@ export default function LandingPage() {
 
       {/* Minimal Footer */}
       <footer className="content-width py-16 border-t border-gray-800">
-        <div className="flex flex-col md:flex-row justify-between items-start space-y-8 md:space-y-0">
+        <div className="flex flex-col md:flex-row justify-between items-start space-y-8 md:space-y-0 px-4">
           <div>
             <p className="atmospheric-text-large font-medium mb-2">Simpatient AI</p>
             <p className="atmospheric-text text-sm mb-4">Transforming medical education through AI</p>
@@ -499,7 +557,7 @@ export default function LandingPage() {
             </div>
           </div>
           
-          <div className="flex items-center space-x-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
             <Link href="/academic" className="atmospheric-text hover:text-white motion-natural">
               Research
             </Link>
