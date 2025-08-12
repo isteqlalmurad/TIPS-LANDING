@@ -5,10 +5,7 @@ import {
   Link
 } from "@heroui/react";
 import { 
-  ArrowLeft,
-  Calendar,
-  Clock,
-  Users
+  ArrowLeft
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -57,6 +54,7 @@ export default function BookDemoPage() {
     };
   }, []);
 
+  // Animation variants for consistent motion
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -109,8 +107,7 @@ export default function BookDemoPage() {
             {/* Hero Section */}
             <motion.div
               className="text-center mb-12"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
+              {...fadeInUp}
               transition={{ duration: 1, delay: 0.6 }}
             >
               <h1 className="gravity-headline mb-8">
