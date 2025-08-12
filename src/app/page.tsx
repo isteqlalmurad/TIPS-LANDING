@@ -50,9 +50,17 @@ const Navigation = () => (
     transition={{ duration: 1, delay: 0.5 }}
   >
     <div className="content-width flex justify-between items-center py-8">
-      <Link href="/" className="atmospheric-text-large font-medium tracking-tight">
-        Simpatient AI
-      </Link>
+    <Link href="/" className="atmospheric-text-large font-medium tracking-tight flex items-center space-x-0.5">
+  <Image
+    src="/logo/SimLogo.png" // or "/logo/SimLogoWhite.png" if you upload the new one
+    alt="Simpatient Logo"
+    width={50}
+    height={50}
+    className="inline-block"
+    priority
+  />
+  <span>Simpatient</span>
+</Link>
       
       <div className="flex items-center space-x-8">
         <Link 
