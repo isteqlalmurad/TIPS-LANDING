@@ -6,6 +6,7 @@
   --color-cosmic-navy: #1a1b3a;
   --color-stellar-purple: #2d2f5f;
   --color-nebula-violet: #4a4d7c;
+  --color-cosmic-indigo: #5a5d8c;
   --color-aurora-lavender: #6b6f9d;
   --color-celestial-blue: #8b8fb5;
   --color-moonlight-silver: #c4c7e0;
@@ -194,23 +195,30 @@ html {
   );
 }
 
-.act-understanding {
+.act-demonstration {
   background: linear-gradient(180deg, 
     var(--color-cosmic-navy) 0%, 
     var(--color-stellar-purple) 100%
   );
 }
 
-.act-demonstration {
+.act-understanding {
   background: linear-gradient(180deg, 
     var(--color-stellar-purple) 0%, 
     var(--color-nebula-violet) 100%
   );
 }
 
-.act-authority {
+.act-creation {
   background: linear-gradient(180deg, 
     var(--color-nebula-violet) 0%, 
+    var(--color-cosmic-indigo) 100%
+  );
+}
+
+.act-authority {
+  background: linear-gradient(180deg, 
+    var(--color-cosmic-indigo) 0%, 
     var(--color-aurora-lavender) 100%
   );
 }

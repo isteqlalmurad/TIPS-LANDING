@@ -153,6 +153,7 @@ export default function LandingPage() {
 
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
 
+
   return (
     <div ref={containerRef} className="page-canvas">
       <Navigation />
@@ -306,6 +307,10 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="mb-32"
           >
+                        <h2 className="gravity-subheadline mb-16">
+              Multi-Modal AI Patients Interactions
+            </h2>
+            <br />
             <p className="atmospheric-text-large mb-16">
               Simpatient AI transforms medical education through three immersive interaction modes.
               <br />
@@ -371,7 +376,85 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Act IV: Authority - Professional Positioning */}
+      {/* Act IV: Creation - Patient Script Diversity */}
+      <section className="narrative-section act-creation full-width relative">
+        <OrganicSphere 
+          size="320px"
+          position={{ top: "30%", right: "-8%" }}
+          gradient="gradient-orb-warm"
+          delay={0.4}
+        />
+        
+        <div className="content-width">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mb-24"
+          >
+            <h2 className="gravity-subheadline mb-16">
+              Bring your Patient Scripts to Life
+            </h2>
+            <br />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+              <div>
+                <p className="atmospheric-text-large mb-8">
+                  Create realistic AI patients with just a few prompts.
+                  <br />
+                  Our state-of-the-art Diversity Engine creates culturally diverse AI patient scenarios that are aligned to your needs and curriculum.
+                  <br />
+                  Or use your own patient scripts and bring them to life.
+                </p>
+                
+                <div className="space-y-6 mb-8">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-3 flex-shrink-0"></div>
+                    <p className="atmospheric-text">
+                      <span className="font-semibold text-white">Prompt-Based Generation:</span> Transform simple descriptions into complex, realistic patient presentations
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-4">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-3 flex-shrink-0"></div>
+                    <p className="atmospheric-text">
+                      <span className="font-semibold text-white">Cultural Diversity:</span> Generate patients from diverse backgrounds with authentic cultural contexts
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-4">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-3 flex-shrink-0"></div>
+                    <p className="atmospheric-text">
+                      <span className="font-semibold text-white">Curriculum Alignment:</span> Automatically adapt scenarios to match your learning objectives and level
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Diversity Engine Interface */}
+              <div className="relative screenshot-container">
+                <motion.div
+                  className="relative rounded-3xl overflow-hidden border border-gray-600 shadow-2xl max-w-2xl mx-auto"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.2, delay: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <Image 
+                    src="/shots/Diversity_Engine.gif" 
+                    alt="Simpatient AI Diversity Engine - Patient Generation Interface" 
+                    width={1200} 
+                    height={900}
+                    className="w-full h-auto"
+                    unoptimized
+                  />
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Act V: Authority - Professional Positioning */}
       <section className="narrative-section act-authority full-width relative">
         <OrganicSphere 
           size="250px"
@@ -465,7 +548,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Act V: Intimacy - Personal Connection */}
+      {/* Act VI: Intimacy - Personal Connection */}
       <section className="narrative-section act-intimacy full-width relative">
         <OrganicSphere 
           size="350px"
@@ -485,11 +568,12 @@ export default function LandingPage() {
             <h2 className="gravity-subheadline mb-12">
               Simpatient AI adapts to your learning journey
             </h2>
+            <br />
             
             <p className="atmospheric-text-large max-w-3xl mx-auto mb-16">
-              Whether you&apos;re a first-year medical student or preparing for specialization,
-              our AI understands your level and creates personalized patient scenarios 
-              that challenge you appropriately.
+              If you&apos;re an institution,and want your students to practice with AI patients,
+              our AI understands the student&apos;s level and creates personalized patient scenarios for any specialization and skill level
+              that challenge them appropriately.
             </p>
             
             {/* Personalization Interface Screenshot */}
