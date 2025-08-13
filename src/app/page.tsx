@@ -60,12 +60,10 @@ const Navigation = () => {
           <Image
             src="/logo/SimLogo.png"
             alt="Simpatient Logo"
-            width={40}
-            height={40}
-            className="inline-block sm:w-[50px] sm:h-[50px]"
-            priority
+            width={37}
+            height={37}
           />
-          <span className="text-lg sm:text-xl">Simpatient</span>
+<span className="text-base sm:text-lg">Simpatient</span>
         </Link>
         
         {/* Desktop Navigation */}
