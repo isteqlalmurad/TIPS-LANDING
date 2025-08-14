@@ -139,7 +139,7 @@ export default function AcademicPage() {
               <div className="w-8 h-8 bg-accent-purple rounded-lg flex items-center justify-center">
                 <GraduationCap className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-primary-text">Simpatient AI</span>
+              <span className="text-base sm:text-lg font-bold text-primary-text">Simpatient AI</span>
             </div>
           </div>
         </div>
@@ -154,9 +154,9 @@ export default function AcademicPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center justify-center mb-6">
-              <BookOpen className="w-12 h-12 text-accent-purple mr-4" />
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-text">
+            <div className="flex flex-col sm:flex-row items-center justify-center mb-6">
+              <BookOpen className="w-10 h-10 sm:w-12 sm:h-12 text-accent-purple mb-2 sm:mb-0 sm:mr-4" />
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-text text-center sm:text-left">
                 Academic Publications
               </h1>
             </div>
