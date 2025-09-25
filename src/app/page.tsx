@@ -66,6 +66,18 @@ const Navigation = () => {
 <span className="text-base sm:text-lg">Simpatient</span>
         </Link>
         
+        {/* Featured by OpenAI Academy */}
+        <div className="hidden md:flex items-center justify-center flex-1">
+          <Link 
+            href="https://academy.openai.com/public/videos/andrew-omalley-medicine-2025-08-20"
+            target="_blank"
+            className="atmospheric-text hover:text-white motion-natural px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-400/30 flex items-center space-x-2"
+          >
+            <span className="text-sm font-medium">🎉 We are now featured by OpenAI Academy 2025</span>
+            <ExternalLink className="w-3 h-3" />
+          </Link>
+        </div>
+
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
           <Link 
@@ -102,6 +114,18 @@ const Navigation = () => {
         </button>
       </div>
       
+      {/* Mobile Featured Banner */}
+      <div className="md:hidden px-4 pb-4">
+        <Link 
+          href="https://academy.openai.com/public/videos/andrew-omalley-medicine-2025-08-20"
+          target="_blank"
+          className="atmospheric-text hover:text-white motion-natural px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-400/30 flex items-center justify-center space-x-2 w-full"
+        >
+          <span className="text-xs font-medium">🎉 Featured by OpenAI Academy 2025</span>
+          <ExternalLink className="w-3 h-3" />
+        </Link>
+      </div>
+      
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <motion.div
@@ -112,6 +136,15 @@ const Navigation = () => {
           transition={{ duration: 0.3 }}
         >
           <div className="flex flex-col items-center justify-start pt-12 space-y-8">
+            <Link 
+              href="https://academy.openai.com/public/videos/andrew-omalley-medicine-2025-08-20"
+              target="_blank"
+              className="atmospheric-text hover:text-white motion-natural px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-400/30 flex items-center space-x-2 mb-4"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <span className="text-sm font-medium">🎉 Product featured by OpenAI Academy 2025</span>
+              <ExternalLink className="w-3 h-3" />
+            </Link>
             <Link 
               href="/academic" 
               className="atmospheric-text-large hover:text-white motion-natural"
