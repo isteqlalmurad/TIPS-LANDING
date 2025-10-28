@@ -132,9 +132,9 @@ export default function BookDemoPage() {
                 
                 {/* Calendly Embed */}
                 <div className="relative z-10">
-                  <div 
-                    className="calendly-inline-widget" 
-                    data-url="https://calendly.com/hello-simpatient/30min" 
+                  <div
+                    className="calendly-inline-widget"
+                    data-url="https://calendly.com/hello-simpatient/simpatient-meeting"
                     style={{ minWidth: '320px', height: '700px' }}
                   />
                 </div>

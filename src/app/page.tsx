@@ -80,14 +80,20 @@ const Navigation = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link 
-            href="/academic" 
+          <Link
+            href="/blog"
+            className="atmospheric-text hover:text-white motion-natural"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/academic"
             className="atmospheric-text hover:text-white motion-natural"
           >
             Research
           </Link>
-          <Link 
-            href="/about" 
+          <Link
+            href="/about"
             className="atmospheric-text hover:text-white motion-natural"
           >
             About
@@ -136,7 +142,7 @@ const Navigation = () => {
           transition={{ duration: 0.3 }}
         >
           <div className="flex flex-col items-center justify-start pt-12 space-y-8">
-            <Link 
+            <Link
               href="https://academy.openai.com/public/videos/andrew-omalley-medicine-2025-08-20"
               target="_blank"
               className="atmospheric-text hover:text-white motion-natural px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-400/30 flex items-center space-x-2 mb-4"
@@ -145,15 +151,22 @@ const Navigation = () => {
               <span className="text-sm font-medium">🎉 Product featured by OpenAI Academy 2025</span>
               <ExternalLink className="w-3 h-3" />
             </Link>
-            <Link 
-              href="/academic" 
+            <Link
+              href="/blog"
+              className="atmospheric-text-large hover:text-white motion-natural"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Blog
+            </Link>
+            <Link
+              href="/academic"
               className="atmospheric-text-large hover:text-white motion-natural"
               onClick={() => setIsMenuOpen(false)}
             >
               Research
             </Link>
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className="atmospheric-text-large hover:text-white motion-natural"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -312,7 +325,7 @@ export default function LandingPage() {
             <div className="relative rounded-3xl overflow-hidden border border-gray-700 shadow-2xl max-w-5xl mx-auto">
               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                 <iframe
-                  src="https://drive.google.com/file/d/1DASbzrEGUTLWgp-YnJ13zVVVVy5xS2Bx/preview"
+                  src="https://drive.google.com/file/d/19Cj5As39RqDO6_Q5OkkMKNQwHY2Daf3Y/preview"
                   className="absolute top-0 left-0 w-full h-full"
                   allow="encrypted-media"
                   allowFullScreen
@@ -673,6 +686,9 @@ export default function LandingPage() {
           </div>
           
           <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
+            <Link href="/blog" className="atmospheric-text hover:text-white motion-natural">
+              Blog
+            </Link>
             <Link href="/academic" className="atmospheric-text hover:text-white motion-natural">
               Research
             </Link>
