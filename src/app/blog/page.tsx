@@ -56,39 +56,6 @@ const blogPosts: BlogPost[] = [
     date: "October 2, 2024",
     readTime: "4 min read",
     category: "Awards & Recognition"
-  },
-  {
-    id: "st-andrews-pilot-2024",
-    title: "Medical Students Embrace AI: St Andrews Pilot Success",
-    excerpt: "On October 12th, 2024, medical students at the University of St Andrews School of Medicine participated in an exciting pilot program that's set to revolutionize their training.",
-    content: [
-      "The morning of October 12th, 2024, marked a turning point in medical education at the University of St Andrews. In a state-of-the-art teaching facility, a group of eager medical students gathered for something unprecedented: their first interaction with Simpatient AI's virtual patient platform.",
-      "## The Pilot That Changed Everything",
-      "\"I was nervous at first,\" admitted Sarah Chen, a third-year medical student. \"I thought it would feel artificial, like talking to a chatbot. But within minutes, I was completely immersed. The AI patient responded to my questions with realistic symptoms, emotional reactions, and even challenged my diagnostic approach.\"",
-      "The pilot program, carefully designed by the Simpatient AI team in collaboration with St Andrews' School of Medicine faculty, focused on clinical communication skills—an area where many students report feeling underprepared. Over the course of the day, students engaged in multiple virtual consultations, each presenting unique challenges and learning opportunities.",
-      "## Beyond Traditional Training",
-      "Dr Sandhya Duggal, Lecturer in Medical Sociology and Communication Skills, observed the sessions with growing excitement. \"What struck me most was how quickly students overcame their initial hesitation. By their second or third patient interaction, they were treating the experience as seriously as they would a real clinical encounter.\"",
-      "The platform's ability to provide immediate, constructive feedback proved particularly valuable. After each consultation, students received detailed analysis of their communication patterns, diagnostic reasoning, and areas for improvement—insights that would typically require extensive debriefing sessions with human supervisors.",
-      "## Student Voices",
-      "The feedback was overwhelmingly positive. James Mitchell, a second-year student, shared: \"I've always been anxious about patient interactions. This gives me a safe space to practice, make mistakes, and learn without the fear of causing harm. It's transformative.\"",
-      "Another student, Priya Patel, highlighted the diversity aspect: \"We encountered patients from different cultural backgrounds, with varying communication styles and health beliefs. That's so important for our training, and something we don't always get enough exposure to.\"",
-      "## Faculty Perspectives",
-      "The teaching staff were equally impressed. Dr Xining Wang, leading the evaluation of the pilot, noted significant advantages: \"We can now track student progress with unprecedented granularity. The AI doesn't just tell us if a student performed well—it shows us exactly where they excel and where they need support.\"",
-      "Professor Thomson, Head of Clinical Skills, emphasized the scalability: \"We've struggled with capacity constraints for years. We simply can't provide every student with enough practice opportunities using traditional methods. Simpatient AI doesn't replace our simulated patient programs—it complements them brilliantly.\"",
-      "## The Technical Excellence",
-      "Students were particularly impressed by the platform's natural language processing capabilities. The AI patients understood medical terminology, responded to follow-up questions appropriately, and even displayed realistic emotional responses when discussing sensitive topics.",
-      "The voice interaction feature received special praise. \"Hearing the patient's tone, their hesitations, their anxiety—it added a layer of realism I didn't expect,\" explained one participant. \"It's not just about what they say, but how they say it.\"",
-      "## Looking Forward",
-      "By day's end, what started as a pilot program felt like a preview of the future. Students left the session energized, eager to practice more, and confident that their clinical skills were developing at an accelerated pace.",
-      "The School of Medicine has already begun discussions about integrating Simpatient AI into the core curriculum for the coming academic year. \"This pilot exceeded our expectations,\" confirmed Dr Andrew O'Malley. \"Watching students grow in confidence, seeing their communication skills sharpen in real-time—this is why we built Simpatient AI.\"",
-      "## The Bigger Picture",
-      "As medical education worldwide grapples with capacity challenges, diversity requirements, and the need for more personalized learning, the St Andrews pilot offers a compelling case study. Technology and humanity, working together to create better healthcare professionals.",
-      "For the students who participated, October 12th wasn't just another training session—it was the day they glimpsed the future of medical education. And they loved every moment of it."
-    ],
-    image: "/blogpics/sample.webp",
-    date: "October 12, 2024",
-    readTime: "5 min read",
-    category: "Pilot Programs"
   }
 ];
 
@@ -245,7 +212,7 @@ export default function BlogPage() {
           ) : (
             // Blog Posts Grid
             <motion.div
-              className="grid md:grid-cols-2 gap-8"
+              className="grid md:grid-cols-1 gap-8 max-w-3xl mx-auto"
               variants={stagger}
               initial="initial"
               whileInView="animate"
