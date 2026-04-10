@@ -1,13 +1,6 @@
 'use client';
 
 import {
-  Button,
-  Card,
-  CardBody,
-  Chip,
-  Link
-} from "@heroui/react";
-import {
   ArrowLeft,
   Calendar,
   Clock,
@@ -18,6 +11,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 // Blog Post Type
 interface BlogPost {
@@ -66,7 +60,7 @@ export default function BlogPage() {
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
+    transition: { duration: 0.4 }
   };
 
   const stagger = {
@@ -86,14 +80,12 @@ export default function BlogPage() {
   const expandedPost = expandedPostId ? blogPosts.find(p => p.id === expandedPostId) : null;
 
   return (
-    <div className="min-h-screen bg-primary-dark">
+    <div className="min-h-screen bg-[#F0FDFA]">
       {/* Header */}
-      <div className="bg-hero-box/30 border-b border-hero-box/20">
+      <div className="bg-white border-b border-[#E0F2FE]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              startContent={<ArrowLeft className="w-4 h-4" />}
+            <button
               onClick={() => {
                 if (expandedPostId) {
                   window.location.href = '/blog';
@@ -101,16 +93,20 @@ export default function BlogPage() {
                   router.push('/');
                 }
               }}
-              className="text-secondary-text hover:text-primary-text"
+              className="flex items-center gap-2 text-[#64748B] hover:text-[#134E4A] transition-colors duration-200"
             >
-              {expandedPostId ? 'Back to Posts' : 'Back to Home'}
-            </Button>
+              <ArrowLeft className="w-4 h-4" />
+              <span>{expandedPostId ? 'Back to Posts' : 'Back to Home'}</span>
+            </button>
 
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-accent-purple rounded-lg flex items-center justify-center">
-                <Newspaper className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-base sm:text-lg font-bold text-primary-text">Simpatient AI</span>
+              <Image
+                src="/logo/SimLogo.png"
+                alt="Simpatient Logo"
+                width={30}
+                height={30}
+              />
+              <span className="text-base sm:text-lg font-bold text-[#134E4A]">Simpatient AI</span>
             </div>
           </div>
         </div>
@@ -124,11 +120,13 @@ export default function BlogPage() {
               className="text-center mb-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.5 }}
             >
               <div className="flex flex-col sm:flex-row items-center justify-center">
-                <Newspaper className="w-10 h-10 sm:w-12 sm:h-12 text-accent-purple mb-2 sm:mb-0 sm:mr-4" />
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-text text-center sm:text-left">
+                <div className="w-11 h-11 bg-[#F0FDFA] border-2 border-[#E0F2FE] rounded-2xl flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
+                  <Newspaper className="w-6 h-6 text-[#0891B2]" />
+                </div>
+                <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-[#134E4A] text-center sm:text-left">
                   Latest News
                 </h1>
               </div>
@@ -138,35 +136,31 @@ export default function BlogPage() {
       )}
 
       {/* Blog Posts Grid or Expanded Post */}
-      <section className={`${expandedPostId ? 'py-12' : 'py-20'} px-4 sm:px-6 lg:px-8 ${!expandedPostId ? 'bg-hero-box/20' : ''}`}>
+      <section className={`${expandedPostId ? 'py-12' : 'py-20'} px-4 sm:px-6 lg:px-8 ${!expandedPostId ? 'bg-white' : ''}`}>
         <div className="max-w-7xl mx-auto">
           {expandedPostId && expandedPost ? (
             // Expanded Post View
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.4 }}
             >
-              <Card className="bg-hero-box border-hero-box/30">
-                <CardBody className="p-8 md:p-12">
+              <div className="clay-card clay-card-hover">
+                <div className="p-8 md:p-12">
                   {/* Category Badge */}
                   <div className="mb-4">
-                    <Chip
-                      color="primary"
-                      variant="flat"
-                      className="bg-accent-purple/20 text-accent-purple"
-                    >
+                    <span className="inline-block px-3 py-1 text-sm bg-[#F0FDFA] text-[#0891B2] border border-[#E0F2FE] rounded-full">
                       {expandedPost.category}
-                    </Chip>
+                    </span>
                   </div>
 
                   {/* Title */}
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-text mb-6 leading-tight">
+                  <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-light text-[#134E4A] mb-6 leading-tight">
                     {expandedPost.title}
                   </h1>
 
                   {/* Meta Info */}
-                  <div className="flex flex-wrap items-center gap-6 mb-8 text-secondary-text">
+                  <div className="flex flex-wrap items-center gap-6 mb-8 text-[#64748B]">
                     <div className="flex items-center">
                       <Calendar className="w-4 h-4 mr-2" />
                       <span>{expandedPost.date}</span>
@@ -178,7 +172,7 @@ export default function BlogPage() {
                   </div>
 
                   {/* Featured Image - Full Size */}
-                  <div className="relative w-full mb-8 rounded-2xl overflow-hidden border border-hero-box/50">
+                  <div className="relative w-full mb-8 rounded-2xl overflow-hidden border border-[#E0F2FE]">
                     <Image
                       src={expandedPost.image}
                       alt={expandedPost.title}
@@ -190,24 +184,24 @@ export default function BlogPage() {
                   </div>
 
                   {/* Content */}
-                  <div className="prose prose-invert prose-lg max-w-none">
+                  <div className="prose prose-lg max-w-none">
                     {expandedPost.content.map((paragraph, index) => {
                       if (paragraph.startsWith('##')) {
                         return (
-                          <h2 key={index} className="text-2xl md:text-3xl font-bold text-primary-text mt-12 mb-6">
+                          <h2 key={index} className="font-heading text-2xl md:text-3xl font-light text-[#134E4A] mt-12 mb-6">
                             {paragraph.replace('##', '').trim()}
                           </h2>
                         );
                       }
                       return (
-                        <p key={index} className="text-secondary-text text-lg leading-relaxed mb-6">
+                        <p key={index} className="text-[#64748B] text-lg leading-relaxed mb-6">
                           {paragraph}
                         </p>
                       );
                     })}
                   </div>
-                </CardBody>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           ) : (
             // Blog Posts Grid
@@ -220,61 +214,60 @@ export default function BlogPage() {
             >
               {blogPosts.map((post) => (
                 <motion.div key={post.id} variants={fadeInUp}>
-                  <Card
-                    className="bg-hero-box border-hero-box/30 hover:border-accent-purple/50 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer h-full"
-                    isPressable
-                    onPress={() => handlePostClick(post.id)}
+                  <div
+                    className="clay-card clay-card-hover cursor-pointer h-full transition-all duration-300 hover:scale-[1.02]"
+                    onClick={() => handlePostClick(post.id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        handlePostClick(post.id);
+                      }
+                    }}
                   >
-                    <CardBody className="p-0">
-                      {/* Image Section - Smaller, preserving aspect ratio */}
-                      <div className="relative w-full h-64 overflow-hidden">
-                        <Image
-                          src={post.image}
-                          alt={post.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                        />
+                    {/* Image Section */}
+                    <div className="relative w-full h-64 overflow-hidden rounded-t-2xl">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="p-6">
+                      {/* Category Badge */}
+                      <div className="mb-4">
+                        <span className="inline-block px-3 py-1 text-xs bg-[#F0FDFA] text-[#0891B2] border border-[#E0F2FE] rounded-full">
+                          {post.category}
+                        </span>
                       </div>
 
-                      {/* Content Section */}
-                      <div className="p-6">
-                        {/* Category Badge */}
-                        <div className="mb-4">
-                          <Chip
-                            size="sm"
-                            color="primary"
-                            variant="flat"
-                            className="bg-accent-purple/20 text-accent-purple text-xs"
-                          >
-                            {post.category}
-                          </Chip>
+                      {/* Title */}
+                      <h3 className="font-heading text-xl font-light text-[#134E4A] mb-3 leading-tight">
+                        {post.title}
+                      </h3>
+
+                      {/* Meta Info */}
+                      <div className="flex items-center gap-4 text-[#64748B] text-sm mb-4">
+                        <div className="flex items-center">
+                          <Calendar className="w-4 h-4 mr-2" />
+                          <span>{post.date}</span>
                         </div>
-
-                        {/* Title */}
-                        <h3 className="text-xl font-bold text-primary-text mb-3 leading-tight">
-                          {post.title}
-                        </h3>
-
-                        {/* Meta Info */}
-                        <div className="flex items-center gap-4 text-secondary-text text-sm mb-4">
-                          <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-2" />
-                            <span>{post.date}</span>
-                          </div>
-                          <div className="flex items-center">
-                            <Clock className="w-4 h-4 mr-2" />
-                            <span>{post.readTime}</span>
-                          </div>
+                        <div className="flex items-center">
+                          <Clock className="w-4 h-4 mr-2" />
+                          <span>{post.readTime}</span>
                         </div>
-
-                        {/* Excerpt */}
-                        <p className="text-secondary-text text-sm leading-relaxed">
-                          {post.excerpt}
-                        </p>
                       </div>
-                    </CardBody>
-                  </Card>
+
+                      {/* Excerpt */}
+                      <p className="text-[#64748B] text-sm leading-relaxed">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -284,39 +277,36 @@ export default function BlogPage() {
 
       {/* Call to Action - Only show when not expanded */}
       {!expandedPostId && (
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-hero-box/30">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F0FDFA]">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <Award className="w-16 h-16 text-accent-purple mx-auto mb-6" />
-              <h2 className="text-3xl md:text-4xl font-bold text-primary-text mb-6">
+              <div className="w-11 h-11 bg-[#F0FDFA] border-2 border-[#E0F2FE] rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Award className="w-6 h-6 text-[#0891B2]" />
+              </div>
+              <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-6">
                 Experience Simpatient AI
               </h2>
-              <p className="text-xl text-secondary-text mb-8 leading-relaxed">
+              <p className="text-xl text-[#64748B] mb-8 leading-relaxed">
                 Join hundreds of medical students already transforming their clinical skills with AI-powered virtual patients.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  color="primary"
-                  className="bg-accent-purple text-white font-semibold px-8 py-3"
+                <button
                   onClick={() => router.push('/')}
+                  className="bg-[#0891B2] text-white hover:bg-[#0E7490] font-semibold px-8 py-3 rounded-xl transition-colors duration-200"
                 >
                   Explore Platform
-                </Button>
-                <Button
-                  size="lg"
-                  variant="bordered"
-                  className="border-accent-purple text-accent-purple font-semibold px-8 py-3"
-                  as={Link}
+                </button>
+                <Link
                   href="/book-demo"
+                  className="border-2 border-[#E0F2FE] text-[#0891B2] hover:bg-[#F0FDFA] font-semibold px-8 py-3 rounded-xl transition-colors duration-200 inline-block text-center"
                 >
                   Book a Demo
-                </Button>
+                </Link>
               </div>
             </motion.div>
           </div>

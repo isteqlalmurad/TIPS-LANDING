@@ -1,23 +1,16 @@
 'use client';
 
-import { 
-  Button, 
-  Card, 
-  CardBody, 
-  Chip,
-  Link
-} from "@heroui/react";
-import { 
+import {
   ExternalLink,
   BookOpen,
   Users,
   Calendar,
   Award,
-  ArrowLeft,
-  GraduationCap
+  ArrowLeft
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function AcademicPage() {
   const router = useRouter();
@@ -25,7 +18,7 @@ export default function AcademicPage() {
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
+    transition: { duration: 0.4 }
   };
 
   const stagger = {
@@ -121,25 +114,22 @@ export default function AcademicPage() {
   const categories = [...new Set(publications.map(pub => pub.category))];
 
   return (
-    <div className="min-h-screen bg-primary-dark">
+    <div className="min-h-screen bg-[#F0FDFA]">
       {/* Header */}
-      <div className="bg-hero-box/30 border-b border-hero-box/20">
+      <div className="bg-white border-b border-[#E0F2FE]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              startContent={<ArrowLeft className="w-4 h-4" />}
+            <button
               onClick={() => router.push('/')}
-              className="text-secondary-text hover:text-primary-text"
+              className="flex items-center gap-2 text-[#64748B] hover:text-[#134E4A] transition-colors duration-200"
             >
-              Back to Home
-            </Button>
-            
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to Home</span>
+            </button>
+
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-accent-purple rounded-lg flex items-center justify-center">
-                <GraduationCap className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-base sm:text-lg font-bold text-primary-text">Simpatient AI</span>
+              <Image src="/logo/SimLogo.png" alt="Simpatient Logo" width={30} height={30} />
+              <span className="text-base sm:text-lg font-bold text-[#134E4A]">Simpatient AI</span>
             </div>
           </div>
         </div>
@@ -148,52 +138,54 @@ export default function AcademicPage() {
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
           >
             <div className="flex flex-col sm:flex-row items-center justify-center mb-6">
-              <BookOpen className="w-10 h-10 sm:w-12 sm:h-12 text-accent-purple mb-2 sm:mb-0 sm:mr-4" />
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-text text-center sm:text-left">
+              <div className="w-11 h-11 bg-[#F0FDFA] border-2 border-[#E0F2FE] rounded-2xl flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
+                <BookOpen className="w-6 h-6 text-[#0891B2]" />
+              </div>
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-[#134E4A] text-center sm:text-left">
                 Academic Publications
               </h1>
             </div>
-            
-            <p className="text-xl md:text-2xl text-secondary-text mb-8 max-w-4xl mx-auto leading-relaxed">
-              Research and publications from the University of St Andrews exploring AI in medical education, 
+
+            <p className="text-xl md:text-2xl text-[#64748B] mb-8 max-w-4xl mx-auto leading-relaxed">
+              Research and publications from the University of St Andrews exploring AI in medical education,
               clinical simulation, and innovative teaching methodologies.
             </p>
 
             {/* Stats */}
             <div className="grid md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <motion.div 
+              <motion.div
                 className="text-center"
                 variants={fadeInUp}
                 initial="initial"
                 animate="animate"
               >
-                <div className="text-3xl font-bold text-accent-purple">{publications.length}</div>
-                <div className="text-secondary-text">Publications</div>
+                <div className="text-3xl font-bold text-[#0891B2]">{publications.length}</div>
+                <div className="text-[#64748B]">Publications</div>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="text-center"
                 variants={fadeInUp}
                 initial="initial"
                 animate="animate"
               >
-                <div className="text-3xl font-bold text-accent-purple">{categories.length}</div>
-                <div className="text-secondary-text">Research Areas</div>
+                <div className="text-3xl font-bold text-[#0891B2]">{categories.length}</div>
+                <div className="text-[#64748B]">Research Areas</div>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="text-center"
                 variants={fadeInUp}
                 initial="initial"
                 animate="animate"
               >
-                <div className="text-3xl font-bold text-accent-purple">2024</div>
-                <div className="text-secondary-text">Latest Year</div>
+                <div className="text-3xl font-bold text-[#0891B2]">2024</div>
+                <div className="text-[#64748B]">Latest Year</div>
               </motion.div>
             </div>
           </motion.div>
@@ -201,26 +193,24 @@ export default function AcademicPage() {
       </section>
 
       {/* Research Categories */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-hero-box/20">
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-2xl font-bold text-primary-text mb-4">Research Areas</h2>
+            <h2 className="font-heading text-2xl font-light text-[#134E4A] mb-4">Research Areas</h2>
             <div className="flex flex-wrap justify-center gap-3">
               {categories.map((category) => (
-                <Chip
+                <span
                   key={category}
-                  color="primary"
-                  variant="flat"
-                  className="bg-accent-purple/20 text-accent-purple border-accent-purple/30"
+                  className="inline-flex items-center px-4 py-1.5 rounded-full text-sm bg-[#F0FDFA] text-[#0891B2] border border-[#E0F2FE]"
                 >
                   {category}
-                </Chip>
+                </span>
               ))}
             </div>
           </motion.div>
@@ -230,7 +220,7 @@ export default function AcademicPage() {
       {/* Publications Grid */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={stagger}
             initial="initial"
@@ -239,72 +229,60 @@ export default function AcademicPage() {
           >
             {publications.map((publication) => (
               <motion.div key={publication.id} variants={fadeInUp}>
-                <Card className="bg-hero-box border-hero-box/30 hover:border-accent-purple/50 transition-all duration-300 hover:transform hover:scale-105 h-full">
-                  <CardBody className="p-6">
-                    {/* Category Badge */}
-                    <div className="mb-4">
-                      <Chip
-                        size="sm"
-                        color="primary"
-                        variant="flat"
-                        className="bg-accent-purple/20 text-accent-purple text-xs"
+                <div className="clay-card clay-card-hover h-full flex flex-col p-6">
+                  {/* Category Badge */}
+                  <div className="mb-4">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-[#F0FDFA] text-[#0891B2] border border-[#E0F2FE]">
+                      {publication.category}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg font-bold text-[#134E4A] mb-3 leading-tight">
+                    {publication.title}
+                  </h3>
+
+                  {/* Authors and Year */}
+                  <div className="flex items-center text-[#64748B] text-sm mb-2">
+                    <Users className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span className="truncate">{publication.authors.join(", ")}</span>
+                  </div>
+
+                  <div className="flex items-center text-[#64748B] text-sm mb-4">
+                    <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span>{publication.year} &bull; {publication.journal}</span>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-[#64748B] text-sm leading-relaxed mb-6 flex-grow">
+                    {publication.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {publication.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs bg-[#F0FDFA] text-[#0891B2] border border-[#E0F2FE]"
                       >
-                        {publication.category}
-                      </Chip>
-                    </div>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
 
-                    {/* Title */}
-                    <h3 className="text-lg font-bold text-primary-text mb-3 leading-tight">
-                      {publication.title}
-                    </h3>
-
-                    {/* Authors and Year */}
-                    <div className="flex items-center text-secondary-text text-sm mb-2">
-                      <Users className="w-4 h-4 mr-2 flex-shrink-0" />
-                      <span className="truncate">{publication.authors.join(", ")}</span>
-                    </div>
-
-                    <div className="flex items-center text-secondary-text text-sm mb-4">
-                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
-                      <span>{publication.year} • {publication.journal}</span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-secondary-text text-sm leading-relaxed mb-6 flex-grow">
-                      {publication.description}
-                    </p>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {publication.tags.map((tag) => (
-                        <Chip
-                          key={tag}
-                          size="sm"
-                          variant="bordered"
-                          className="border-accent-purple/30 text-accent-purple text-xs"
-                        >
-                          {tag}
-                        </Chip>
-                      ))}
-                    </div>
-
-                    {/* Action Button */}
-                    <div className="mt-auto">
-                      <Button
-                        as={Link}
-                        href={publication.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        color="primary"
-                        variant="bordered"
-                        className="w-full border-accent-purple text-accent-purple hover:bg-accent-purple hover:text-white"
-                        endContent={<ExternalLink className="w-4 h-4" />}
-                      >
-                        Read Publication
-                      </Button>
-                    </div>
-                  </CardBody>
-                </Card>
+                  {/* Action Button */}
+                  <div className="mt-auto">
+                    <a
+                      href={publication.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#E0F2FE] text-[#0891B2] hover:bg-[#0891B2] hover:text-white hover:border-[#0891B2] transition-all duration-200 text-sm font-medium"
+                    >
+                      Read Publication
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -312,41 +290,39 @@ export default function AcademicPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-hero-box/30">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             viewport={{ once: true }}
           >
-            <Award className="w-16 h-16 text-accent-purple mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-text mb-6">
+            <div className="w-11 h-11 bg-[#F0FDFA] border-2 border-[#E0F2FE] rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Award className="w-6 h-6 text-[#0891B2]" />
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-6">
               Research-Backed Innovation
             </h2>
-            <p className="text-xl text-secondary-text mb-8 leading-relaxed">
-              Our AI-powered medical training platform is built on cutting-edge research 
+            <p className="text-xl text-[#64748B] mb-8 leading-relaxed">
+              Our AI-powered medical training platform is built on cutting-edge research
               from the University of St Andrews, ensuring evidence-based learning experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                color="primary" 
-                className="bg-accent-purple text-white font-semibold px-8 py-3"
+              <button
+                className="bg-[#0891B2] text-white hover:bg-[#0E7490] font-semibold px-8 py-3 rounded-xl transition-colors duration-200"
                 onClick={() => router.push('/')}
               >
                 Explore Simpatient AI Platform
-              </Button>
-              <Button 
-                size="lg" 
-                variant="bordered" 
-                className="border-accent-purple text-accent-purple font-semibold px-8 py-3"
-                as={Link}
+              </button>
+              <a
                 href="https://research-portal.st-andrews.ac.uk/"
                 target="_blank"
+                rel="noopener noreferrer"
+                className="border-2 border-[#E0F2FE] text-[#0891B2] font-semibold px-8 py-3 rounded-xl hover:bg-[#F0FDFA] transition-colors duration-200 inline-block"
               >
                 Visit Research Portal
-              </Button>
+              </a>
             </div>
           </motion.div>
         </div>

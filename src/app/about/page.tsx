@@ -1,13 +1,11 @@
 'use client';
 
-import { 
-  Button, 
-  Card, 
-  CardBody, 
+import {
+  Button,
   Chip,
   Link
 } from "@heroui/react";
-import { 
+import {
   ArrowLeft,
   Heart,
   Users,
@@ -24,24 +22,25 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+const fadeUp = {
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+};
+
+const fadeUpItem = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 },
+};
+
+const stagger = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { staggerChildren: 0.1 } },
+};
+
 export default function AboutPage() {
   const router = useRouter();
-
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  };
-
-  const stagger = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
 
   const teamMembers = [
     {
@@ -53,12 +52,7 @@ export default function AboutPage() {
       photo: "/profiles/Dr Andrew O'Malley.jpeg",
       location: "Scotland, UK",
       email: "andrew@simpatient.ai",
-      linkedin: "#",
-      achievements: [
-        "Deputy Programme Director ScotGEM",
-        "Deputy Director of Teaching",
-        "Medical Education Specialist"
-      ]
+      achievements: ["Deputy Programme Director ScotGEM", "Deputy Director of Teaching", "Medical Education Specialist"]
     },
     {
       id: 2,
@@ -67,14 +61,9 @@ export default function AboutPage() {
       bio: "Sayed Murad is an AI engineer and former United Nations Interpreter focused on language equity and breaking communication barriers worldwide. With experience in human-centred AI design and a background in EdTech and MedTech research, he brings practical expertise in building socially impactful AI tools.",
       expertise: ["AI Engineering", "Human-Centred AI Design", "EdTech & MedTech", "Language Equity", "Communication Barriers"],
       photo: "/profiles/Mr Sayed Murad.png",
-      location: "Scotland, UK", 
+      location: "Scotland, UK",
       email: "sayed@simpatient.ai",
-      linkedin: "#",
-      achievements: [
-        "Former UN Interpreter",
-        "AI Engineering Expert",
-        "Social Impact Technology"
-      ]
+      achievements: ["Former UN Interpreter", "AI Engineering Expert", "Social Impact Technology"]
     },
     {
       id: 3,
@@ -85,12 +74,7 @@ export default function AboutPage() {
       photo: "/profiles/Dr Sandhya Duggal.jpeg",
       location: "Scotland, UK",
       email: "sandhya@simpatient.ai",
-      linkedin: "#",
-      achievements: [
-        "10+ years Health Research",
-        "Medical Communication Expert",
-        "Social Care Specialist"
-      ]
+      achievements: ["10+ years Health Research", "Medical Communication Expert", "Social Care Specialist"]
     },
     {
       id: 4,
@@ -101,293 +85,198 @@ export default function AboutPage() {
       photo: "/profiles/Dr Xining Wang.webp",
       location: "Scotland, UK",
       email: "xining@simpatient.ai",
-      linkedin: "#",
-      achievements: [
-        "HCI Evaluation Expert",
-        "TEL Research Specialist",
-        "Educational Technology Researcher"
-      ]
+      achievements: ["HCI Evaluation Expert", "TEL Research Specialist", "Educational Technology Researcher"]
     }
   ];
 
   const companyValues = [
-    {
-      icon: Target,
-      title: "Innovation",
-      description: "Pushing the boundaries of medical education through cutting-edge AI technology"
-    },
-    {
-      icon: Heart,
-      title: "Patient Care",
-      description: "Improving healthcare outcomes by training better medical professionals"
-    },
-    {
-      icon: Lightbulb,
-      title: "Excellence",
-      description: "Delivering the highest quality educational experiences and tools"
-    },
-    {
-      icon: Users,
-      title: "Collaboration",
-      description: "Building strong partnerships with medical institutions worldwide"
-    }
+    { icon: Target, title: "Innovation", description: "Pushing the boundaries of medical education through cutting-edge AI technology" },
+    { icon: Heart, title: "Patient Care", description: "Improving healthcare outcomes by training better medical professionals" },
+    { icon: Lightbulb, title: "Excellence", description: "Delivering the highest quality educational experiences and tools" },
+    { icon: Users, title: "Collaboration", description: "Building strong partnerships with medical institutions worldwide" },
   ];
 
   return (
-    <div className="min-h-screen bg-primary-dark">
+    <div className="min-h-screen bg-[#F0FDFA]">
       {/* Header */}
-      <div className="bg-hero-box/30 border-b border-hero-box/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="bg-white border-b border-[#E0F2FE]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Button
               variant="ghost"
               startContent={<ArrowLeft className="w-4 h-4" />}
               onClick={() => router.push('/')}
-              className="text-secondary-text hover:text-primary-text"
+              className="text-[#134E4A] hover:text-[#0891B2] text-sm font-medium transition-colors duration-200"
             >
               Back to Home
             </Button>
-            
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-accent-purple rounded-lg flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-base sm:text-lg font-bold text-primary-text">Simpatient AI</span>
-            </div>
+            <Link href="/" className="flex items-center space-x-1.5">
+              <Image src="/logo/SimLogo.png" alt="Simpatient Logo" width={30} height={30} />
+              <span className="font-heading text-base font-semibold text-[#134E4A]">Simpatient AI</span>
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Hero */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex flex-col sm:flex-row items-center justify-center mb-6">
-              <Users className="w-10 h-10 sm:w-12 sm:h-12 text-accent-purple mb-2 sm:mb-0 sm:mr-4" />
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-text text-center sm:text-left">
+          <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-11 h-11 bg-[#F0FDFA] border-2 border-[#E0F2FE] rounded-2xl flex items-center justify-center">
+                <Users className="w-6 h-6 text-[#0891B2]" />
+              </div>
+              <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-light text-[#134E4A]">
                 About Simpatient AI
               </h1>
             </div>
-            
-            <p className="text-xl md:text-2xl text-secondary-text mb-12 max-w-4xl mx-auto leading-relaxed">
-              We&apos;re passionate about transforming medical education through innovative AI technology. 
-              Our mission is to create safer, more effective learning experiences for the next generation of healthcare professionals.
+
+            <p className="text-lg sm:text-xl text-[#64748B] mb-12 max-w-3xl mx-auto leading-relaxed">
+              We&apos;re passionate about transforming medical education through innovative AI technology. Our mission is to create safer, more effective learning experiences for the next generation of healthcare professionals.
             </p>
 
-            {/* Mission Statement */}
+            {/* Mission Card */}
             <motion.div
-              className="bg-hero-box rounded-2xl p-8 max-w-4xl mx-auto border border-hero-box/30"
-              initial={{ opacity: 0, y: 20 }}
+              className="clay-card p-8 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Rocket className="w-10 h-10 text-accent-purple mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-primary-text mb-4">Our Mission</h2>
-              <p className="text-secondary-text leading-relaxed">
-                To revolutionize medical education by providing AI-powered virtual patients that enable students 
-                to practice clinical skills safely, receive instant feedback, and build confidence before treating real patients. 
-                We believe that better-trained medical professionals lead to better patient outcomes.
+              <div className="w-10 h-10 bg-[#F0FDFA] border-2 border-[#E0F2FE] rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Rocket className="w-5 h-5 text-[#0891B2]" />
+              </div>
+              <h2 className="font-heading text-xl font-semibold text-[#134E4A] mb-4">Our Mission</h2>
+              <p className="text-[#64748B] leading-relaxed">
+                To revolutionize medical education by providing AI-powered virtual patients that enable students to practice clinical skills safely, receive instant feedback, and build confidence before treating real patients. We believe that better-trained medical professionals lead to better patient outcomes.
               </p>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-hero-box/20">
+      {/* Team */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-text mb-4">
-              Meet Our Team
-            </h2>
-            <p className="text-xl text-secondary-text max-w-3xl mx-auto">
+          <motion.div className="text-center mb-12" {...fadeUp} transition={{ duration: 0.5 }}>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-4">Meet Our Team</h2>
+            <p className="text-lg text-[#64748B] max-w-2xl mx-auto">
               The visionary leaders behind Simpatient AI&apos;s innovative medical education platform
             </p>
           </motion.div>
 
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-2 gap-12 max-w-7xl mx-auto"
-            variants={stagger}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
+          <motion.div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto" variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }}>
             {teamMembers.map((member) => (
-              <motion.div key={member.id} variants={fadeInUp}>
-                <Card className="bg-hero-box border-hero-box/30 hover:border-accent-purple/50 transition-all duration-300 hover:transform hover:scale-105 h-full">
-                  <CardBody className="p-8">
-                    {/* Photo and Basic Info */}
-                    <div className="text-center mb-6">
-                      <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-accent-purple/20">
-                        <Image 
-                          src={member.photo}
-                          alt={member.name}
-                          width={128}
-                          height={128}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <h3 className="text-2xl font-bold text-primary-text mb-2">{member.name}</h3>
-                      <Chip
-                        color="primary"
-                        variant="flat"
-                        className="bg-accent-purple/20 text-accent-purple mb-4"
-                      >
-                        {member.role}
-                      </Chip>
-                    </div>
+              <motion.div key={member.id} variants={fadeUpItem} className="clay-card clay-card-hover p-8">
+                {/* Photo + Info */}
+                <div className="text-center mb-6">
+                  <div className="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-4 border-[#E0F2FE]">
+                    <Image src={member.photo} alt={member.name} width={112} height={112} className="w-full h-full object-cover" />
+                  </div>
+                  <h3 className="font-heading text-xl font-semibold text-[#134E4A] mb-2">{member.name}</h3>
+                  <Chip color="primary" variant="flat" className="bg-[#F0FDFA] text-[#0891B2] border border-[#E0F2FE] mb-4">
+                    {member.role}
+                  </Chip>
+                </div>
 
-                    {/* Bio */}
-                    <p className="text-secondary-text leading-relaxed mb-6 text-center">
-                      {member.bio}
-                    </p>
+                <p className="text-[#64748B] text-sm leading-relaxed mb-6 text-center">{member.bio}</p>
 
-                    {/* Expertise */}
-                    <div className="mb-6">
-                      <h4 className="text-primary-text font-semibold mb-3 flex items-center justify-center">
-                        <Briefcase className="w-4 h-4 mr-2" />
-                        Expertise
-                      </h4>
-                      <div className="flex flex-wrap justify-center gap-2">
-                        {member.expertise.map((skill) => (
-                          <Chip
-                            key={skill}
-                            size="sm"
-                            variant="bordered"
-                            className="border-accent-purple/30 text-accent-purple text-xs"
-                          >
-                            {skill}
-                          </Chip>
-                        ))}
-                      </div>
-                    </div>
+                {/* Expertise */}
+                <div className="mb-6">
+                  <h4 className="text-[#134E4A] font-semibold text-sm mb-3 flex items-center justify-center">
+                    <Briefcase className="w-3.5 h-3.5 mr-1.5" /> Expertise
+                  </h4>
+                  <div className="flex flex-wrap justify-center gap-1.5">
+                    {member.expertise.map((skill) => (
+                      <Chip key={skill} size="sm" variant="bordered" className="border-[#E0F2FE] text-[#0891B2] text-xs">{skill}</Chip>
+                    ))}
+                  </div>
+                </div>
 
-                    {/* Achievements */}
-                    <div className="mb-6">
-                      <h4 className="text-primary-text font-semibold mb-3 flex items-center justify-center">
-                        <Award className="w-4 h-4 mr-2" />
-                        Achievements
-                      </h4>
-                      <div className="space-y-2">
-                        {member.achievements.map((achievement) => (
-                          <div key={achievement} className="flex items-center justify-center text-secondary-text text-sm">
-                            <div className="w-2 h-2 bg-accent-purple rounded-full mr-2" />
-                            {achievement}
-                          </div>
-                        ))}
+                {/* Achievements */}
+                <div className="mb-6">
+                  <h4 className="text-[#134E4A] font-semibold text-sm mb-3 flex items-center justify-center">
+                    <Award className="w-3.5 h-3.5 mr-1.5" /> Achievements
+                  </h4>
+                  <div className="space-y-1.5">
+                    {member.achievements.map((a) => (
+                      <div key={a} className="flex items-center justify-center text-[#64748B] text-xs">
+                        <div className="w-1.5 h-1.5 bg-[#0891B2] rounded-full mr-2" />{a}
                       </div>
-                    </div>
+                    ))}
+                  </div>
+                </div>
 
-                    {/* Contact Info */}
-                    <div className="border-t border-hero-box/50 pt-6">
-                      <div className="flex items-center justify-center space-x-6">
-                        <div className="flex items-center text-secondary-text text-sm">
-                          <MapPin className="w-4 h-4 mr-2" />
-                          {member.location}
-                        </div>
-                        <Button
-                          as={Link}
-                          href={`mailto:${member.email}`}
-                          size="sm"
-                          variant="ghost"
-                          className="text-accent-purple hover:bg-accent-purple/20"
-                          startContent={<Mail className="w-4 h-4" />}
-                        >
-                          Contact
-                        </Button>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
+                {/* Contact */}
+                <div className="border-t border-[#E0F2FE] pt-5">
+                  <div className="flex items-center justify-center gap-4">
+                    <span className="flex items-center text-[#64748B] text-xs">
+                      <MapPin className="w-3.5 h-3.5 mr-1" />{member.location}
+                    </span>
+                    <Button
+                      as={Link}
+                      href={`mailto:${member.email}`}
+                      size="sm"
+                      variant="ghost"
+                      className="text-[#0891B2] hover:bg-[#F0FDFA] text-xs"
+                      startContent={<Mail className="w-3.5 h-3.5" />}
+                    >
+                      Contact
+                    </Button>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Company Values */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Values */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-text mb-4">
-              Our Values
-            </h2>
-            <p className="text-xl text-secondary-text max-w-3xl mx-auto">
-              The principles that guide everything we do at Simpatient AI
-            </p>
+          <motion.div className="text-center mb-12" {...fadeUp} transition={{ duration: 0.5 }}>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-4">Our Values</h2>
+            <p className="text-lg text-[#64748B] max-w-2xl mx-auto">The principles that guide everything we do at Simpatient AI</p>
           </motion.div>
 
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-            variants={stagger}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
+          <motion.div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }}>
             {companyValues.map((value) => (
-              <motion.div key={value.title} variants={fadeInUp}>
-                <Card className="bg-hero-box border-hero-box/30 hover:border-accent-purple/50 transition-colors h-full text-center">
-                  <CardBody className="p-6">
-                    <div className="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <value.icon className="w-6 h-6 text-accent-purple" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-primary-text mb-3">{value.title}</h3>
-                    <p className="text-secondary-text text-sm leading-relaxed">{value.description}</p>
-                  </CardBody>
-                </Card>
+              <motion.div key={value.title} variants={fadeUpItem} className="clay-card clay-card-hover p-6 text-center">
+                <div className="w-12 h-12 bg-[#F0FDFA] border-2 border-[#E0F2FE] rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <value.icon className="w-6 h-6 text-[#0891B2]" />
+                </div>
+                <h3 className="font-heading text-lg font-semibold text-[#134E4A] mb-2">{value.title}</h3>
+                <p className="text-[#64748B] text-sm leading-relaxed">{value.description}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-hero-box/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <GraduationCap className="w-16 h-16 text-accent-purple mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-text mb-6">
+      {/* CTA */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-[#E0F2FE]">
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.div {...fadeUp} transition={{ duration: 0.5 }}>
+            <div className="w-14 h-14 bg-[#F0FDFA] border-2 border-[#E0F2FE] rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <GraduationCap className="w-7 h-7 text-[#0891B2]" />
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-4">
               Join Us in Transforming Medical Education
             </h2>
-            <p className="text-xl text-secondary-text mb-8 leading-relaxed">
-              Whether you&apos;re a medical student, educator, or institution, we&apos;re here to support 
-              your journey in medical education with cutting-edge AI technology.
+            <p className="text-lg text-[#64748B] mb-8 leading-relaxed">
+              Whether you&apos;re a medical student, educator, or institution, we&apos;re here to support your journey in medical education with cutting-edge AI technology.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                color="primary" 
-                className="bg-accent-purple text-white font-semibold px-8 py-3"
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button
+                size="lg"
+                className="bg-[#0891B2] text-white hover:bg-[#0E7490] font-medium px-8 py-3 rounded-xl"
                 onClick={() => router.push('/')}
               >
                 Explore Platform
               </Button>
-              <Button 
-                size="lg" 
-                variant="bordered" 
-                className="border-accent-purple text-accent-purple font-semibold px-8 py-3"
+              <Button
+                size="lg"
+                variant="bordered"
+                className="border-2 border-[#E0F2FE] text-[#0891B2] hover:border-[#0891B2] font-medium px-8 py-3 rounded-xl"
                 as={Link}
                 href="/book-demo"
               >

@@ -1,44 +1,20 @@
 'use client';
 
-import { 
+import {
   Button,
   Link
 } from "@heroui/react";
-import { 
+import {
   ArrowLeft
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-
-// Organic Sphere Component (reused from main page)
-const OrganicSphere = ({ size, position, gradient, delay = 0 }: {
-  size: string;
-  position: React.CSSProperties;
-  gradient: string;
-  delay?: number;
-}) => (
-  <motion.div
-    className={`organic-sphere ${gradient} opacity-30`}
-    style={{
-      width: size,
-      height: size,
-      ...position
-    }}
-    initial={{ scale: 0, opacity: 0 }}
-    animate={{ scale: 1, opacity: 0.6 }}
-    transition={{ 
-      duration: 2, 
-      delay,
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }}
-  />
-);
+import Image from "next/image";
 
 export default function BookDemoPage() {
   const router = useRouter();
 
-  // Load Calendly script
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://assets.calendly.com/assets/external/widget.js';
@@ -46,7 +22,6 @@ export default function BookDemoPage() {
     document.body.appendChild(script);
 
     return () => {
-      // Cleanup script on unmount
       const existingScript = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]');
       if (existingScript) {
         document.body.removeChild(existingScript);
@@ -54,108 +29,82 @@ export default function BookDemoPage() {
     };
   }, []);
 
-  // Animation variants for consistent motion
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  };
-
   return (
-    <div className="page-canvas">
-      {/* Atmospheric Background - Extends the narrative */}
-      <section className="narrative-section act-intimacy full-width relative min-h-screen">
-        <OrganicSphere 
-          size="400px"
-          position={{ top: "10%", right: "-15%" }}
-          gradient="gradient-orb-cool"
-          delay={0.3}
-        />
-        <OrganicSphere 
-          size="250px"
-          position={{ bottom: "15%", left: "-8%" }}
-          gradient="gradient-orb-warm"
-          delay={0.8}
-        />
+    <div className="min-h-screen bg-[#F0FDFA]">
+      {/* Navigation */}
+      <motion.nav
+        className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-[#E0F2FE]"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="max-w-7xl mx-auto flex justify-between items-center py-3 px-4 lg:px-8">
+          <Link href="/" className="flex items-center space-x-1.5">
+            <Image
+              src="/logo/SimLogo.png"
+              alt="Simpatient Logo"
+              width={34}
+              height={34}
+            />
+            <span className="font-heading text-base font-semibold text-[#134E4A]">Simpatient</span>
+          </Link>
 
-        {/* Navigation */}
-        <motion.nav 
-          className="fixed top-0 w-full z-50 mix-blend-mode-difference"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <div className="content-width flex justify-between items-center py-8">
-            <Link href="/" className="atmospheric-text-large font-medium tracking-tight">
-              Simpatient AI
-            </Link>
-            
-            <Button
-              variant="ghost"
-              startContent={<ArrowLeft className="w-4 h-4" />}
-              onClick={() => router.push('/')}
-              className="atmospheric-text hover:text-white motion-natural"
-            >
-              Back to Home
-            </Button>
-          </div>
-        </motion.nav>
-
-        <div className="content-width relative z-10">
-          <div className="min-h-screen flex flex-col justify-start pt-32">
-            
-            {/* Hero Section */}
-            <motion.div
-              className="text-center mb-12"
-              {...fadeInUp}
-              transition={{ duration: 1, delay: 0.6 }}
-            >
-              <h1 className="gravity-headline mb-8">
-                Book your demo
-              </h1>
-              
-              <p className="atmospheric-text-large max-w-2xl mx-auto">
-                Experience Simpatient AI with a personalized 40-minute demo
-              </p>
-            </motion.div>
-
-            {/* Calendly Widget Container */}
-            <motion.div
-              className="max-w-4xl mx-auto w-full mb-16"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, delay: 1.2 }}
-            >
-              {/* Atmospheric Container for Calendly */}
-              <div className="relative rounded-3xl overflow-hidden border border-gray-600 shadow-2xl bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-sm p-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 to-blue-900/10 pointer-events-none" />
-                
-                {/* Calendly Embed */}
-                <div className="relative z-10">
-                  <div
-                    className="calendly-inline-widget"
-                    data-url="https://calendly.com/hello-simpatient/simpatient-meeting"
-                    style={{ minWidth: '320px', height: '700px' }}
-                  />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Simple Contact */}
-            <motion.div
-              className="text-center mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.4 }}
-            >
-              <p className="atmospheric-text text-sm">
-                Questions? <Link href="mailto:hello@simpatient.co.uk" className="text-white hover:opacity-80 motion-natural">Email us</Link>
-              </p>
-            </motion.div>
-
-          </div>
+          <Button
+            variant="ghost"
+            startContent={<ArrowLeft className="w-4 h-4" />}
+            onClick={() => router.push('/')}
+            className="text-[#134E4A] hover:text-[#0891B2] text-sm font-medium transition-colors duration-200"
+          >
+            Back to Home
+          </Button>
         </div>
-      </section>
+      </motion.nav>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+        {/* Hero */}
+        <motion.div
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-light text-[#134E4A] mb-4">
+            Book your demo
+          </h1>
+          <p className="text-lg text-[#64748B] max-w-xl mx-auto">
+            Experience Simpatient AI with a personalized 40-minute demo
+          </p>
+        </motion.div>
+
+        {/* Calendly Widget */}
+        <motion.div
+          className="clay-card p-4 sm:p-8 mb-10"
+          initial={{ opacity: 0, y: 16, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <div
+            className="calendly-inline-widget"
+            data-url="https://calendly.com/hello-simpatient/simpatient-meeting"
+            style={{ minWidth: '320px', height: '700px' }}
+          />
+        </motion.div>
+
+        {/* Contact */}
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+        >
+          <p className="text-sm text-[#64748B]">
+            Questions?{' '}
+            <Link href="mailto:hello@simpatient.co.uk" className="text-[#0891B2] hover:text-[#0E7490] font-medium transition-colors duration-200">
+              Email us
+            </Link>
+          </p>
+        </motion.div>
+      </div>
     </div>
   );
 }

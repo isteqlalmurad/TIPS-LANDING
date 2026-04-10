@@ -1,10 +1,10 @@
 'use client';
 
-import { 
+import {
   Button,
   Link
 } from "@heroui/react";
-import { 
+import {
   ArrowRight,
   Play,
   MessageCircle,
@@ -12,696 +12,578 @@ import {
   Video,
   ExternalLink,
   Menu,
-  X
+  X,
+  Sparkles,
+  Mail,
+  MapPin
 } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import Image from "next/image";
 import CountUp from "react-countup";
 
-// Organic Sphere Component
-const OrganicSphere = ({ size, position, gradient, delay = 0 }: {
-  size: string;
-  position: React.CSSProperties;
-  gradient: string;
-  delay?: number;
-}) => (
-  <motion.div
-    className={`organic-sphere ${gradient} opacity-30`}
-    style={{
-      width: size,
-      height: size,
-      ...position
-    }}
-    initial={{ scale: 0, opacity: 0 }}
-    animate={{ scale: 1, opacity: 0.6 }}
-    transition={{ 
-      duration: 2, 
-      delay,
-      ease: [0.25, 0.46, 0.45, 0.94]
-    }}
-  />
-);
+// Animation presets
+const fadeUp = {
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+};
 
-// Navigation Component - Responsive with Mobile Menu
+const fadeUpTransition = (delay = 0) => ({
+  duration: 0.5,
+  delay,
+  ease: "easeOut" as const,
+});
+
+// Navigation Component
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   return (
-    <motion.nav 
-      className="fixed top-0 w-full z-50 mix-blend-mode-difference"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.5 }}
+    <motion.nav
+      className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-[#E0F2FE]"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
     >
-      <div className="content-width flex justify-between items-center py-4 sm:py-8">
+      <div className="max-w-7xl mx-auto flex justify-between items-center py-3 px-4 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="atmospheric-text-large font-medium tracking-tight flex items-center space-x-0.5">
+        <Link href="/" className="flex items-center space-x-1.5">
           <Image
             src="/logo/SimLogo.png"
             alt="Simpatient Logo"
-            width={37}
-            height={37}
+            width={34}
+            height={34}
           />
-<span className="text-base sm:text-lg">Simpatient</span>
+          <span className="font-heading text-base font-semibold text-[#134E4A]">Simpatient</span>
         </Link>
-        
-        {/* Featured by OpenAI Academy */}
+
+        {/* Center - OpenAI Badge (desktop) */}
         <div className="hidden md:flex items-center justify-center flex-1">
-          <Link 
+          <Link
             href="https://academy.openai.com/public/videos/andrew-omalley-medicine-2025-08-20"
             target="_blank"
-            className="atmospheric-text hover:text-white motion-natural px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-400/30 flex items-center space-x-2"
+            className="flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#F0FDFA] border border-[#E0F2FE] hover:border-[#0891B2]/30 transition-colors duration-200"
           >
-            <span className="text-sm font-medium">🎉 We are now featured by OpenAI Academy 2025</span>
-            <ExternalLink className="w-3 h-3" />
+            <Sparkles className="w-3.5 h-3.5 text-[#0891B2]" />
+            <span className="text-sm font-medium text-[#0891B2]">Featured by OpenAI Academy 2025</span>
+            <ExternalLink className="w-3 h-3 text-[#0891B2]" />
           </Link>
         </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link
-            href="/blog"
-            className="atmospheric-text hover:text-white motion-natural"
-          >
+          <Link href="/blog" className="text-sm font-medium text-[#134E4A] hover:text-[#0891B2] transition-colors duration-200">
             Blog
           </Link>
-          <Link
-            href="/academic"
-            className="atmospheric-text hover:text-white motion-natural"
-          >
+          <Link href="/academic" className="text-sm font-medium text-[#134E4A] hover:text-[#0891B2] transition-colors duration-200">
             Research
           </Link>
-          <Link
-            href="/about"
-            className="atmospheric-text hover:text-white motion-natural"
-          >
+          <Link href="/about" className="text-sm font-medium text-[#134E4A] hover:text-[#0891B2] transition-colors duration-200">
             About
           </Link>
           <Button
             as={Link}
             href="https://app.simpatient.co.uk"
             target="_blank"
-            variant="ghost"
             size="sm"
-            className="atmospheric-text hover:text-white motion-natural px-4 py-2"
+            className="bg-[#0891B2] text-white hover:bg-[#0E7490] transition-colors duration-200 px-5 py-2 rounded-lg text-sm font-medium"
           >
             Login
           </Button>
         </div>
-        
-        {/* Mobile Hamburger Menu */}
+
+        {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-white p-2"
+          className="md:hidden text-[#134E4A] p-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-      
-      {/* Mobile Featured Banner */}
-      <div className="md:hidden px-4 pb-4">
-        <Link 
+
+      {/* Mobile - OpenAI Badge */}
+      <div className="md:hidden px-4 pb-3">
+        <Link
           href="https://academy.openai.com/public/videos/andrew-omalley-medicine-2025-08-20"
           target="_blank"
-          className="atmospheric-text hover:text-white motion-natural px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-400/30 flex items-center justify-center space-x-2 w-full"
+          className="flex items-center justify-center space-x-2 px-4 py-1.5 rounded-full bg-[#F0FDFA] border border-[#E0F2FE] w-full"
         >
-          <span className="text-xs font-medium">🎉 Featured by OpenAI Academy 2025</span>
-          <ExternalLink className="w-3 h-3" />
+          <Sparkles className="w-3 h-3 text-[#0891B2]" />
+          <span className="text-xs font-medium text-[#0891B2]">Featured by OpenAI Academy 2025</span>
+          <ExternalLink className="w-3 h-3 text-[#0891B2]" />
         </Link>
       </div>
-      
+
       {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <motion.div
-          className="md:hidden fixed inset-0 top-20 bg-black/95 backdrop-blur-md"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="flex flex-col items-center justify-start pt-12 space-y-8">
-            <Link
-              href="https://academy.openai.com/public/videos/andrew-omalley-medicine-2025-08-20"
-              target="_blank"
-              className="atmospheric-text hover:text-white motion-natural px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-400/30 flex items-center space-x-2 mb-4"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <span className="text-sm font-medium">🎉 Product featured by OpenAI Academy 2025</span>
-              <ExternalLink className="w-3 h-3" />
-            </Link>
-            <Link
-              href="/blog"
-              className="atmospheric-text-large hover:text-white motion-natural"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Blog
-            </Link>
-            <Link
-              href="/academic"
-              className="atmospheric-text-large hover:text-white motion-natural"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Research
-            </Link>
-            <Link
-              href="/about"
-              className="atmospheric-text-large hover:text-white motion-natural"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Button
-              as={Link}
-              href="https://app.simpatient.co.uk"
-              target="_blank"
-              variant="ghost"
-              size="lg"
-              className="bg-white text-black hover:bg-gray-100 motion-natural px-8 py-4 rounded-full font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Login
-            </Button>
-          </div>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="md:hidden fixed inset-0 top-[108px] bg-white/98 backdrop-blur-sm"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="flex flex-col items-center justify-start pt-12 space-y-8 px-6">
+              <Link href="/blog" className="font-heading text-lg text-[#134E4A] hover:text-[#0891B2]" onClick={() => setIsMenuOpen(false)}>
+                Blog
+              </Link>
+              <Link href="/academic" className="font-heading text-lg text-[#134E4A] hover:text-[#0891B2]" onClick={() => setIsMenuOpen(false)}>
+                Research
+              </Link>
+              <Link href="/about" className="font-heading text-lg text-[#134E4A] hover:text-[#0891B2]" onClick={() => setIsMenuOpen(false)}>
+                About
+              </Link>
+              <Button
+                as={Link}
+                href="https://app.simpatient.co.uk"
+                target="_blank"
+                size="lg"
+                className="bg-[#0891B2] text-white hover:bg-[#0E7490] px-8 py-3 rounded-xl font-medium w-full max-w-xs"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Login
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };
 
 export default function LandingPage() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
-
-
   return (
-    <div ref={containerRef} className="page-canvas">
+    <div className="min-h-screen bg-[#F0FDFA]">
       <Navigation />
-      
-      {/* Act I: Intrigue - Minimal Impact */}
-      <section className="narrative-section act-intrigue full-width relative overflow-hidden">
-        <OrganicSphere 
-          size="400px"
-          position={{ top: "10%", right: "-10%" }}
-          gradient="gradient-orb-cool"
-          delay={0.8}
-        />
-        <OrganicSphere 
-          size="200px"
-          position={{ bottom: "20%", left: "-5%" }}
-          gradient="gradient-orb-warm"
-          delay={1.2}
-        />
-        
-        <div className="content-width relative z-10">
-          <motion.div
-            style={{ y: textY }}
-            className="min-h-screen flex flex-col justify-start pt-32 sm:pt-40 items-center px-4"
+
+      {/* ===== HERO SECTION ===== */}
+      <section className="bg-[#F0FDFA] pt-32 sm:pt-36 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.p
+            className="font-heading text-lg text-[#0891B2] font-medium mb-4"
+            {...fadeUp}
+            transition={fadeUpTransition(0.1)}
           >
-            {/* Top subtitle - centered */}
-            <motion.p
-              className="atmospheric-text-large mb-4 text-center max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              Join 700+ future doctors
-            </motion.p>
+            Join 700+ future doctors
+          </motion.p>
 
-            {/* Main title - 5% smaller */}
-            <motion.h1
-              className="gravity-headline-smaller mb-8 sm:mb-16 text-center px-4"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.2 }}
-            >
-              Building better communication
-              <br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>skills with AI Patients
-            </motion.h1>
-            
-            <br />
-
-            {/* Button - centered with equal spacing */}
-            <motion.div
-              className="flex justify-center mb-8 sm:mb-12 px-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.8 }}
-            >
-              <Button
-                as={Link}
-                href="/book-demo"
-                size="lg"
-                className="bg-white text-black hover:bg-gray-100 motion-natural px-6 sm:px-8 py-4 sm:py-6 rounded-full font-medium text-sm sm:text-base"
-                startContent={<Play className="w-4 h-4 sm:w-5 sm:h-5" />}
-              >
-                <span className="hidden sm:inline">Experience Simpatient AI</span>
-                <span className="sm:hidden">Try Simpatient AI</span>
-              </Button>
-            </motion.div>
-
-            {/* University of St Andrews Backing - centered */}
-            <motion.div
-              className="text-center max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 2.2 }}
-            >
-              <p className="atmospheric-text text-sm mb-4">Backed by University of St Andrews</p>
-              <div className="flex justify-center">
-                <Image
-                  src="/shots/st anderws uni.png"
-                  alt="University of St Andrews"
-                  width={120}
-                  height={60}
-                  className="opacity-70 hover:opacity-100 motion-natural"
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Act II: Demonstration - Video Experience */}
-      <section className="narrative-section act-demonstration full-width relative">
-        <OrganicSphere 
-          size="350px"
-          position={{ top: "20%", right: "-12%" }}
-          gradient="gradient-orb-cool"
-          delay={0.6}
-        />
-        
-        <div className="content-width">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
+          <motion.h1
+            className="font-heading text-3xl sm:text-4xl lg:text-6xl font-light text-[#134E4A] tracking-tight leading-[1.1] mb-6 max-w-4xl mx-auto"
+            {...fadeUp}
+            transition={fadeUpTransition(0.2)}
           >
-            <h2 className="gravity-subheadline mb-8">
-              See Simpatient AI in action
-            </h2>
-            <p className="atmospheric-text-large max-w-2xl mx-auto">
-              Watch how our platform transforms medical training through immersive AI interactions
-            </p>
+            Building better communication skills with AI Patients
+          </motion.h1>
+
+          <motion.p
+            className="text-base sm:text-lg text-[#64748B] max-w-2xl mx-auto mb-8 leading-relaxed"
+            {...fadeUp}
+            transition={fadeUpTransition(0.3)}
+          >
+            Practice with realistic AI patients through text, voice, and video interactions. Evidence-based learning backed by University of St Andrews research.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10"
+            {...fadeUp}
+            transition={fadeUpTransition(0.4)}
+          >
+            <Button
+              as={Link}
+              href="/book-demo"
+              size="lg"
+              className="bg-[#0891B2] text-white hover:bg-[#0E7490] px-8 py-3 rounded-xl font-medium text-base shadow-clay-sm w-full sm:w-auto"
+              startContent={<Play className="w-4 h-4" />}
+            >
+              Book a Demo
+            </Button>
+            <Button
+              as={Link}
+              href="https://app.simpatient.co.uk"
+              target="_blank"
+              size="lg"
+              className="bg-white text-[#0891B2] border-2 border-[#E0F2FE] hover:border-[#0891B2] px-6 py-3 rounded-xl font-medium text-base w-full sm:w-auto"
+              endContent={<ArrowRight className="w-4 h-4" />}
+            >
+              Start Learning Today
+            </Button>
           </motion.div>
 
-          {/* Demo Video */}
+          {/* Trust Badges */}
           <motion.div
-            className="relative mb-32 screenshot-container"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.4 }}
-            viewport={{ once: true }}
+            className="flex items-center justify-center gap-6 mb-12"
+            {...fadeUp}
+            transition={fadeUpTransition(0.5)}
           >
-            <div className="relative rounded-3xl overflow-hidden border border-gray-700 shadow-2xl max-w-5xl mx-auto">
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                <iframe
-                  src="https://drive.google.com/file/d/19Cj5As39RqDO6_Q5OkkMKNQwHY2Daf3Y/preview"
-                  className="absolute top-0 left-0 w-full h-full"
-                  allow="encrypted-media"
-                  allowFullScreen
-                />
-              </div>
+            <div className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity duration-200">
+              <Image
+                src="/shots/st anderws uni.png"
+                alt="University of St Andrews"
+                width={100}
+                height={50}
+                className="h-8 w-auto"
+              />
+              <span className="text-xs text-[#64748B] font-medium hidden sm:block">Backed by University<br />of St Andrews</span>
             </div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Act III: Understanding - Capability Demonstration */}
-      <section className="narrative-section act-understanding full-width relative">
-        <OrganicSphere 
-          size="300px"
-          position={{ top: "15%", left: "-8%" }}
-          gradient="gradient-orb-warm"
-          delay={0}
-        />
-        
-        <div className="content-width">
+          {/* Hero Screenshot */}
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="mb-32"
-          >
-                        <h2 className="gravity-subheadline mb-16">
-              Multi-Modal AI Patients Interactions
-            </h2>
-            <br />
-            <p className="atmospheric-text-large mb-16">
-              Simpatient AI transforms medical education through three immersive interaction modes.
-              <br />
-              Each designed to build clinical confidence safely.
-            </p>
-          </motion.div>
-
-          {/* Product Demonstration Area - Main Interface */}
-          <motion.div
-            className="relative mb-32 screenshot-container"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.6 }}
+            className="max-w-5xl mx-auto"
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <div className="relative rounded-3xl overflow-hidden border border-gray-700 shadow-2xl max-w-5xl mx-auto">
-              <Image 
-                src="/shots/main_display.png" 
-                alt="Simpatient AI Main Dashboard Interface" 
-                width={1200} 
+            <div className="clay-card overflow-hidden">
+              <Image
+                src="/shots/main_display.png"
+                alt="Simpatient AI Main Dashboard Interface"
+                width={1200}
                 height={600}
                 className="w-full h-auto"
                 priority
               />
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Interaction Modes */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 md:gap-16 mb-16 sm:mb-24 md:mb-32 px-4">
+      {/* ===== SOCIAL PROOF STATS BAR ===== */}
+      <section className="bg-white py-12 border-y border-[#E0F2FE]">
+        <div className="max-w-4xl mx-auto grid grid-cols-3 gap-4 sm:gap-8 text-center px-4">
+          {[
+            { end: 700, suffix: "+", label: "Medical Students" },
+            { end: 100, suffix: "+", label: "AI Patients" },
+            { end: 1, suffix: "+", label: "Institutions" },
+          ].map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              {...fadeUp}
+              transition={fadeUpTransition(i * 0.1)}
+            >
+              <div className="font-heading text-2xl sm:text-4xl font-bold text-[#0891B2] mb-1">
+                <CountUp
+                  end={stat.end}
+                  duration={2}
+                  enableScrollSpy
+                  scrollSpyOnce
+                />{stat.suffix}
+              </div>
+              <div className="text-xs sm:text-sm text-[#64748B] font-medium">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== FEATURES / MODALITIES ===== */}
+      <section className="bg-[#F0FDFA] py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div className="text-center mb-12" {...fadeUp} transition={fadeUpTransition(0.1)}>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-4">
+              Multi-Modal AI Patient Interactions
+            </h2>
+            <p className="text-lg text-[#64748B] max-w-2xl mx-auto">
+              Three immersive interaction modes, each designed to build clinical confidence safely.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 icon: MessageCircle,
-                mode: "Text Chat",
-                description: "Practice diagnostic questioning through natural text exchanges with AI patients"
+                mode: "Text Conversations",
+                description: "Practice diagnostic questioning through natural text exchanges with AI patients. Build history-taking skills at your own pace."
               },
               {
                 icon: Mic,
-                mode: "Audio Chat", 
-                description: "Develop communication skills through realistic audio conversations"
+                mode: "Voice Interactions",
+                description: "Develop communication skills through realistic audio conversations. Practice tone, empathy, and clinical questioning."
               },
               {
                 icon: Video,
-                mode: "Video Chat",
-                description: "Experience immersive consultations with lifelike AI patient avatars"
+                mode: "Avatar Sessions",
+                description: "Experience immersive consultations with lifelike AI patient avatars. The closest thing to real patient encounters."
               }
             ].map((item, index) => (
               <motion.div
                 key={item.mode}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="text-center"
+                className="clay-card clay-card-hover p-8 text-center cursor-default"
+                {...fadeUp}
+                transition={fadeUpTransition(0.1 + index * 0.1)}
               >
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                  <item.icon className="w-8 h-8 text-white" />
+                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-[#F0FDFA] border-2 border-[#E0F2FE] flex items-center justify-center">
+                  <item.icon className="w-7 h-7 text-[#0891B2]" />
                 </div>
-                <h3 className="gravity-subheadline mb-4">{item.mode}</h3>
-                <p className="atmospheric-text">{item.description}</p>
+                <h3 className="font-heading text-xl font-semibold text-[#134E4A] mb-3">{item.mode}</h3>
+                <p className="text-[#64748B] text-sm leading-relaxed">{item.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Act IV: Creation - Patient Script Diversity */}
-      <section className="narrative-section act-creation full-width relative">
-        <OrganicSphere 
-          size="320px"
-          position={{ top: "30%", right: "-8%" }}
-          gradient="gradient-orb-warm"
-          delay={0.4}
-        />
-        
-        <div className="content-width">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="mb-24"
-          >
-            <h2 className="gravity-subheadline mb-16">
-              Bring your Patient Scripts to Life
+      {/* ===== PRODUCT DEMO / VIDEO ===== */}
+      <section className="bg-white py-16 sm:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div className="text-center mb-12" {...fadeUp} transition={fadeUpTransition(0.1)}>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-4">
+              See Simpatient AI in action
             </h2>
-            <br />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-              <div>
-                <p className="atmospheric-text-large mb-8">
-                  Create realistic AI patients with just a few prompts.
-                  <br />
-                  Our state-of-the-art Diversity Engine creates culturally diverse AI patient scenarios that are aligned to your needs and curriculum.
-                  <br />
-                  Or use your own patient scripts and bring them to life.
-                </p>
-                
-                <div className="space-y-6 mb-8">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-3 flex-shrink-0"></div>
-                    <p className="atmospheric-text">
-                      <span className="font-semibold text-white">Prompt-Based Generation:</span> Transform simple descriptions into complex, realistic patient presentations
-                    </p>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-3 flex-shrink-0"></div>
-                    <p className="atmospheric-text">
-                      <span className="font-semibold text-white">Cultural Diversity:</span> Generate patients from diverse backgrounds with authentic cultural contexts
-                    </p>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-3 flex-shrink-0"></div>
-                    <p className="atmospheric-text">
-                      <span className="font-semibold text-white">Curriculum Alignment:</span> Automatically adapt scenarios to match your learning objectives and level
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Diversity Engine Interface */}
-              <div className="relative screenshot-container">
-                <motion.div
-                  className="relative rounded-3xl overflow-hidden border border-gray-600 shadow-2xl max-w-2xl mx-auto"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.2, delay: 0.6 }}
-                  viewport={{ once: true }}
-                >
-                  <Image 
-                    src="/shots/Diversity_Engine.gif" 
-                    alt="Simpatient AI Diversity Engine - Patient Generation Interface" 
-                    width={1200} 
-                    height={900}
-                    className="w-full h-auto"
-                    unoptimized
-                  />
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Act V: Authority - Professional Positioning */}
-      <section className="narrative-section act-authority full-width relative">
-        <OrganicSphere 
-          size="250px"
-          position={{ top: "25%", right: "-5%" }}
-          gradient="gradient-orb-cool"
-          delay={0.5}
-        />
-        
-        <div className="content-width">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="mb-24"
-          >
-            <h2 className="gravity-subheadline mb-16">
-              Trusted by the future of medicine
-            </h2>
-            <br />
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16 md:gap-24 items-center">
-              <div>
-                <p className="atmospheric-text-large mb-8">
-                  100+ virtual patients spanning all medical specialties.
-                  <br />
-                  Real-time feedback on clinical reasoning and communication.
-                  <br />
-                  Evidence-based learning backed by University of St Andrews research.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">
-                      <CountUp 
-                        end={700} 
-                        duration={2.5}
-                        delay={0.5}
-                        enableScrollSpy
-                        scrollSpyOnce
-                      />+
-                    </div>
-                    <div className="atmospheric-text text-sm">Medical Students</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">
-                      <CountUp 
-                        end={100} 
-                        duration={2.5}
-                        delay={0.7}
-                        enableScrollSpy
-                        scrollSpyOnce
-                      />+
-                    </div>
-                    <div className="atmospheric-text text-sm">AI Patients</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">
-                      <CountUp 
-                        end={1} 
-                        duration={2.5}
-                        delay={0.9}
-                        enableScrollSpy
-                        scrollSpyOnce
-                      />+
-                    </div>
-                    <div className="atmospheric-text text-sm">Institution</div>
-                  </div>
-                </div>
-                
-                <Link href="/academic" className="atmospheric-text hover:text-white inline-flex items-center motion-natural">
-                  Explore our research
-                  <ExternalLink className="w-4 h-4 ml-2" />
-                </Link>
-              </div>
-              
-              {/* Analytics Interface Screenshot */}
-              <div className="relative screenshot-container">
-                <div className="relative rounded-2xl overflow-hidden border border-gray-600 shadow-xl max-w-2xl mx-auto">
-                  <Image 
-                    src="/shots/analytics.png" 
-                    alt="Simpatient AI Analytics and Feedback Dashboard" 
-                    width={800} 
-                    height={500}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Act VI: Intimacy - Personal Connection */}
-      <section className="narrative-section act-intimacy full-width relative">
-        <OrganicSphere 
-          size="350px"
-          position={{ bottom: "10%", left: "-10%" }}
-          gradient="gradient-orb-warm"
-          delay={0.3}
-        />
-        
-        <div className="content-width">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-center mb-24"
-          >
-            <h2 className="gravity-subheadline mb-12">
-              Simpatient AI adapts to your learning journey
-            </h2>
-            <br />
-            
-            <p className="atmospheric-text-large max-w-3xl mx-auto mb-16">
-              If you&apos;re an institution,and want your students to practice with AI patients,
-              our AI understands the student&apos;s level and creates personalized patient scenarios for any specialization and skill level
-              that challenge them appropriately.
+            <p className="text-lg text-[#64748B] max-w-2xl mx-auto">
+              Watch how our platform transforms medical training through immersive AI interactions
             </p>
-            
-            {/* Personalization Interface Screenshot */}
-            <div className="screenshot-container mb-16">
-              <div className="relative rounded-3xl overflow-hidden border border-gray-600 shadow-2xl max-w-5xl mx-auto">
-                <Image 
-                  src="/shots/personalisation.png" 
-                  alt="Simpatient AI Personalized Learning Interface" 
-                  width={1200} 
-                  height={600}
-                  className="w-full h-auto"
-                />
-              </div>
+          </motion.div>
+
+          <motion.div
+            className="clay-card overflow-hidden"
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                src="https://drive.google.com/file/d/19Cj5As39RqDO6_Q5OkkMKNQwHY2Daf3Y/preview"
+                className="absolute top-0 left-0 w-full h-full"
+                allow="encrypted-media"
+                allowFullScreen
+              />
             </div>
-            
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ===== DIVERSITY ENGINE ===== */}
+      <section className="bg-[#F0FDFA] py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2
+            className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-12 text-center lg:text-left"
+            {...fadeUp}
+            transition={fadeUpTransition(0.1)}
+          >
+            Bring your Patient Scripts to Life
+          </motion.h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div {...fadeUp} transition={fadeUpTransition(0.2)}>
+              <p className="text-base sm:text-lg text-[#64748B] leading-relaxed mb-8">
+                Create realistic AI patients with just a few prompts. Our state-of-the-art Diversity Engine creates culturally diverse AI patient scenarios aligned to your curriculum. Or use your own patient scripts and bring them to life.
+              </p>
+
+              <div className="space-y-5">
+                {[
+                  { title: "Prompt-Based Generation", desc: "Transform simple descriptions into complex, realistic patient presentations" },
+                  { title: "Cultural Diversity", desc: "Generate patients from diverse backgrounds with authentic cultural contexts" },
+                  { title: "Curriculum Alignment", desc: "Automatically adapt scenarios to match your learning objectives and level" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-[#0891B2] rounded-full mt-2.5 flex-shrink-0" />
+                    <p className="text-sm text-[#64748B]">
+                      <span className="font-semibold text-[#134E4A]">{item.title}:</span> {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 px-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              className="clay-card overflow-hidden"
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <Button
-                as={Link}
-                href="https://app.simpatient.co.uk"
-                target="_blank"
-                size="lg"
-                className="bg-white text-black hover:bg-gray-100 motion-natural px-8 sm:px-12 py-4 sm:py-6 rounded-full font-medium text-sm sm:text-base w-full sm:w-auto"
-                endContent={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
-              >
-                Start Learning Today
-              </Button>
-              
-              <Button
-                as={Link}
-                href="/book-demo"
-                size="lg"
-                variant="ghost"
-                className="text-white hover:bg-white/10 motion-natural px-6 sm:px-8 py-4 sm:py-6 rounded-full text-sm sm:text-base w-full sm:w-auto"
-                startContent={<Play className="w-4 h-4 sm:w-5 sm:h-5" />}
-              >
-                <span className="hidden sm:inline">Book a Personal Demo</span>
-                <span className="sm:hidden">Book Demo</span>
-              </Button>
+              <Image
+                src="/shots/Diversity_Engine.gif"
+                alt="Simpatient AI Diversity Engine - Patient Generation Interface"
+                width={1200}
+                height={900}
+                className="w-full h-auto"
+                unoptimized
+              />
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== AUTHORITY SECTION ===== */}
+      <section className="bg-white py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div {...fadeUp} transition={fadeUpTransition(0.1)}>
+              <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-8">
+                Trusted by the future of medicine
+              </h2>
+
+              <p className="text-base sm:text-lg text-[#64748B] leading-relaxed mb-8">
+                100+ virtual patients spanning all medical specialties. Real-time feedback on clinical reasoning and communication. Evidence-based learning backed by University of St Andrews research.
+              </p>
+
+              <div className="flex flex-wrap gap-8 mb-8">
+                {[
+                  { end: 700, suffix: "+", label: "Medical Students" },
+                  { end: 100, suffix: "+", label: "AI Patients" },
+                  { end: 1, suffix: "+", label: "Institution" },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <div className="font-heading text-3xl font-bold text-[#0891B2] mb-1">
+                      <CountUp
+                        end={stat.end}
+                        duration={2}
+                        enableScrollSpy
+                        scrollSpyOnce
+                      />{stat.suffix}
+                    </div>
+                    <div className="text-xs text-[#64748B] font-medium">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="/academic"
+                className="inline-flex items-center text-[#0891B2] hover:text-[#0E7490] font-medium text-sm transition-colors duration-200"
+              >
+                Explore our research
+                <ExternalLink className="w-4 h-4 ml-2" />
+              </Link>
+            </motion.div>
+
+            <motion.div
+              className="clay-card overflow-hidden"
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <Image
+                src="/shots/analytics.png"
+                alt="Simpatient AI Analytics and Feedback Dashboard"
+                width={800}
+                height={500}
+                className="w-full h-auto"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== PERSONALIZATION SECTION ===== */}
+      <section className="bg-[#F0FDFA] py-16 sm:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div {...fadeUp} transition={fadeUpTransition(0.1)}>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-6">
+              Adapts to your learning journey
+            </h2>
+            <p className="text-base sm:text-lg text-[#64748B] max-w-3xl mx-auto mb-12 leading-relaxed">
+              If you&apos;re an institution and want your students to practice with AI patients, our AI understands each student&apos;s level and creates personalized patient scenarios for any specialization and skill level.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="clay-card overflow-hidden mb-12"
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <Image
+              src="/shots/personalisation.png"
+              alt="Simpatient AI Personalized Learning Interface"
+              width={1200}
+              height={600}
+              className="w-full h-auto"
+            />
           </motion.div>
         </div>
       </section>
 
-      {/* Minimal Footer */}
-      <footer className="content-width py-16 border-t border-gray-800">
-        <div className="flex flex-col md:flex-row justify-between items-start space-y-8 md:space-y-0 px-4">
-          <div>
-            <p className="atmospheric-text-large font-medium mb-2">Simpatient AI</p>
-            <p className="atmospheric-text text-sm mb-4">Transforming medical education through AI</p>
-            <div className="atmospheric-text text-sm">
-              <p className="mb-2">Email: <Link href="mailto:hello@simpatient.co.uk" className="hover:text-white motion-natural">hello@simpatient.co.uk</Link></p>
-              <p className="leading-relaxed">
-                Address: School of Medicine<br />
-                University of St Andrews<br />
-                N Haugh, St Andrews KY16 9TF
-              </p>
+      {/* ===== FINAL CTA ===== */}
+      <section className="bg-white py-16 sm:py-20 border-t border-[#E0F2FE]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div {...fadeUp} transition={fadeUpTransition(0.1)}>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-[#134E4A] mb-4">
+              Ready to transform medical education?
+            </h2>
+            <p className="text-lg text-[#64748B] mb-8">
+              Join 700+ medical students already practising with Simpatient AI.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-3"
+            {...fadeUp}
+            transition={fadeUpTransition(0.2)}
+          >
+            <Button
+              as={Link}
+              href="https://app.simpatient.co.uk"
+              target="_blank"
+              size="lg"
+              className="bg-[#0891B2] text-white hover:bg-[#0E7490] px-8 py-3 rounded-xl font-medium text-base shadow-clay-sm w-full sm:w-auto"
+              endContent={<ArrowRight className="w-4 h-4" />}
+            >
+              Start Learning Today
+            </Button>
+            <Button
+              as={Link}
+              href="/book-demo"
+              size="lg"
+              className="bg-white text-[#0891B2] border-2 border-[#E0F2FE] hover:border-[#0891B2] px-6 py-3 rounded-xl font-medium text-base w-full sm:w-auto"
+              startContent={<Play className="w-4 h-4" />}
+            >
+              Book a Demo
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer className="bg-[#134E4A] text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-3">
+                <Image
+                  src="/logo/SimLogo1.png"
+                  alt="Simpatient Logo"
+                  width={28}
+                  height={28}
+                  className="brightness-200"
+                />
+                <span className="font-heading text-lg font-semibold">Simpatient AI</span>
+              </div>
+              <p className="text-white/60 text-sm mb-4">Transforming medical education through AI</p>
+              <div className="text-white/50 text-sm space-y-2">
+                <p className="flex items-center gap-2">
+                  <Mail className="w-3.5 h-3.5" />
+                  <Link href="mailto:hello@simpatient.co.uk" className="hover:text-white transition-colors duration-200">
+                    hello@simpatient.co.uk
+                  </Link>
+                </p>
+                <p className="flex items-start gap-2">
+                  <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+                  <span>School of Medicine, University of St Andrews<br />N Haugh, St Andrews KY16 9TF</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8">
+              <Link href="/blog" className="text-white/60 hover:text-white text-sm transition-colors duration-200">Blog</Link>
+              <Link href="/academic" className="text-white/60 hover:text-white text-sm transition-colors duration-200">Research</Link>
+              <Link href="/about" className="text-white/60 hover:text-white text-sm transition-colors duration-200">About</Link>
             </div>
           </div>
-          
-          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
-            <Link href="/blog" className="atmospheric-text hover:text-white motion-natural">
-              Blog
-            </Link>
-            <Link href="/academic" className="atmospheric-text hover:text-white motion-natural">
-              Research
-            </Link>
-            <Link href="/about" className="atmospheric-text hover:text-white motion-natural">
-              About
-            </Link>
+
+          <div className="mt-10 pt-6 border-t border-white/10 text-center">
+            <p className="text-white/40 text-xs">
+              &copy; 2025 Simpatient AI. All rights reserved.
+            </p>
           </div>
-        </div>
-        
-        <div className="mt-12 pt-8 border-t border-gray-800 text-center">
-          <p className="atmospheric-text text-sm">
-            © 2025 Simpatient AI. All rights reserved.
-          </p>
         </div>
       </footer>
     </div>

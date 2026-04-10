@@ -1,12 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Figtree, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({
+const figtree = Figtree({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-figtree",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const notoSans = Noto_Sans({
+  subsets: ["latin"],
+  variable: "--font-noto-sans",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -35,10 +42,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-            <head>
+      <head>
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${figtree.variable} ${notoSans.variable} font-sans antialiased`}>
         <Providers>
           {children}
         </Providers>
