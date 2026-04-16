@@ -42,6 +42,11 @@ html {
   transform: translateY(-2px);
 }
 
+/* Arabic font for geo-personalised hero */
+.font-arabic {
+  font-family: var(--font-noto-arabic), var(--font-noto-sans), system-ui, sans-serif;
+}
+
 /* Motion */
 .motion-natural {
   transition: all 200ms ease;

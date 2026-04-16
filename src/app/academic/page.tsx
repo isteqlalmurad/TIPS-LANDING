@@ -128,7 +128,7 @@ export default function AcademicPage() {
             </button>
 
             <div className="flex items-center space-x-2">
-              <Image src="/logo/SimLogo.png" alt="Simpatient Logo" width={30} height={30} />
+              <Image src="/logo/SimLogo-dark.png" alt="SimPatient AI Logo" width={30} height={30} />
               <span className="text-base sm:text-lg font-bold text-[#134E4A]">Simpatient AI</span>
             </div>
           </div>

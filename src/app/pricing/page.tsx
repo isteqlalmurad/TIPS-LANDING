@@ -187,8 +187,8 @@ export default function PricingPage() {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center py-3 px-4 lg:px-8">
           <Link href="/" className="flex items-center space-x-1.5">
-            <Image src="/logo/SimLogo.png" alt="Simpatient Logo" width={34} height={34} />
-            <span className="font-heading text-base font-semibold text-[#134E4A]">Simpatient</span>
+            <Image src="/logo/SimLogo-dark.png" alt="SimPatient AI Logo" width={34} height={34} />
+            <span className="font-heading text-base font-semibold text-[#134E4A]">SimPatient AI</span>
           </Link>
           <Button
             variant="ghost"

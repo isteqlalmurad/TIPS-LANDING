@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Figtree, Noto_Sans } from "next/font/google";
+import { Figtree, Noto_Sans, Noto_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Analytics } from "@vercel/analytics/next";
@@ -13,6 +13,12 @@ const figtree = Figtree({
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   variable: "--font-noto-sans",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  variable: "--font-noto-arabic",
   weight: ["300", "400", "500", "600", "700"],
 });
 
@@ -45,7 +51,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
-      <body className={`${figtree.variable} ${notoSans.variable} font-sans antialiased`}>
+      <body className={`${figtree.variable} ${notoSans.variable} ${notoSansArabic.variable} font-sans antialiased`}>
         <Providers>
           {children}
         </Providers>

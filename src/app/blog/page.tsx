@@ -101,8 +101,8 @@ export default function BlogPage() {
 
             <div className="flex items-center space-x-2">
               <Image
-                src="/logo/SimLogo.png"
-                alt="Simpatient Logo"
+                src="/logo/SimLogo-dark.png"
+                alt="SimPatient AI Logo"
                 width={30}
                 height={30}
               />

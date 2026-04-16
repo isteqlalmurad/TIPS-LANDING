@@ -111,7 +111,7 @@ export default function AboutPage() {
               Back to Home
             </Button>
             <Link href="/" className="flex items-center space-x-1.5">
-              <Image src="/logo/SimLogo.png" alt="Simpatient Logo" width={30} height={30} />
+              <Image src="/logo/SimLogo-dark.png" alt="SimPatient AI Logo" width={30} height={30} />
               <span className="font-heading text-base font-semibold text-[#134E4A]">Simpatient AI</span>
             </Link>
           </div>
