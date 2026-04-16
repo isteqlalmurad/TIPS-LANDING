@@ -407,7 +407,7 @@ export default function LandingPage() {
               </motion.p>
 
               <motion.h1
-                className={`font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light text-[#134E4A] tracking-tight leading-[1.1] mb-6 ${isArabic ? 'leading-[1.3]' : ''}`}
+                className={`font-heading text-[30px] sm:text-[40px] lg:text-[50px] xl:text-[60px] font-light text-[#134E4A] tracking-tight leading-[1.1] mb-6 ${isArabic ? 'leading-[1.3]' : ''}`}
                 {...fadeUp}
                 transition={fadeUpTransition(0.2)}
               >
