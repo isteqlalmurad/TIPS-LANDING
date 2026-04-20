@@ -337,39 +337,13 @@ export default function LandingPage() {
   const isArabic = langOverride ? langOverride === 'ar' : ARABIC_COUNTRIES.includes(country);
   const t = isArabic ? contentAr : contentEn;
   const hero = t; // Hero section uses same keys
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
 
   const toggleLanguage = useCallback(() => {
     setLangOverride(prev => {
       const currentlyArabic = prev ? prev === 'ar' : ARABIC_COUNTRIES.includes(country);
       return currentlyArabic ? 'en' : 'ar';
     });
-    // Reset video state on language switch
-    setIsMuted(true);
-    setIsPlaying(true);
   }, [country]);
-
-  const handleVideoClick = useCallback(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    // If muted, first click unmutes and restarts from beginning
-    if (video.muted) {
-      video.currentTime = 0;
-      video.muted = false;
-      setIsMuted(false);
-      return;
-    }
-    // Otherwise toggle play/pause
-    if (video.paused) {
-      video.play();
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#F0FDFA]">
@@ -394,123 +368,75 @@ export default function LandingPage() {
           </Link>
         </motion.div>
 
-        <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isArabic ? 'font-arabic' : ''}`} dir={isArabic ? 'rtl' : 'ltr'}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left column — Text content */}
-            <div className={`${isArabic ? 'text-right' : 'text-left'}`}>
-              <motion.p
-                className="font-heading text-xl sm:text-2xl text-[#0891B2] font-medium mb-4"
-                {...fadeUp}
-                transition={fadeUpTransition(0.1)}
-              >
-                {hero.subtitlePre} <span className="font-semibold text-[#0E7490]">{hero.subtitleNum}</span> {hero.subtitlePost}
-              </motion.p>
+        <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center ${isArabic ? 'font-arabic' : ''}`} dir={isArabic ? 'rtl' : 'ltr'}>
+          <motion.p
+            className="font-heading text-xl sm:text-2xl text-[#0891B2] font-medium mb-4"
+            {...fadeUp}
+            transition={fadeUpTransition(0.1)}
+          >
+            {hero.subtitlePre} <span className="font-semibold text-[#0E7490]">{hero.subtitleNum}</span> {hero.subtitlePost}
+          </motion.p>
 
-              <motion.h1
-                className={`font-heading text-[30px] sm:text-[40px] lg:text-[50px] xl:text-[60px] font-light text-[#134E4A] tracking-tight leading-[1.1] mb-6 ${isArabic ? 'leading-[1.3]' : ''}`}
-                {...fadeUp}
-                transition={fadeUpTransition(0.2)}
-              >
-                {hero.headline}
-              </motion.h1>
+          <motion.h1
+            className={`font-heading text-[30px] sm:text-[40px] lg:text-[50px] xl:text-[60px] font-light text-[#134E4A] tracking-tight leading-[1.1] mb-6 ${isArabic ? 'leading-[1.3]' : ''}`}
+            {...fadeUp}
+            transition={fadeUpTransition(0.2)}
+          >
+            {hero.headline}
+          </motion.h1>
 
-              <motion.p
-                className="text-lg sm:text-xl text-[#64748B] mb-8 leading-relaxed max-w-xl"
-                {...fadeUp}
-                transition={fadeUpTransition(0.3)}
-              >
-                {hero.body}
-              </motion.p>
+          <motion.p
+            className="text-lg sm:text-xl text-[#64748B] mb-8 leading-relaxed max-w-2xl mx-auto"
+            {...fadeUp}
+            transition={fadeUpTransition(0.3)}
+          >
+            {hero.body}
+          </motion.p>
 
-              {/* CTA */}
-              <motion.div
-                className="mb-8"
-                {...fadeUp}
-                transition={fadeUpTransition(0.4)}
-              >
-                <Button
-                  as={Link}
-                  href="/book-demo"
-                  size="lg"
-                  className="bg-[#0891B2] text-white hover:bg-[#0E7490] px-8 py-3 rounded-xl font-medium text-base shadow-clay-sm w-full sm:w-auto"
-                  startContent={<Play className="w-4 h-4" />}
-                >
-                  {hero.cta1}
-                </Button>
-              </motion.div>
-
-              {/* Trust Badges */}
-              <motion.div
-                className={`flex flex-wrap items-center gap-x-6 gap-y-3 ${isArabic ? 'flex-row-reverse justify-end' : ''}`}
-                {...fadeUp}
-                transition={fadeUpTransition(0.5)}
-              >
-                <Link href="https://www.st-andrews.ac.uk/medicine/" target="_blank" className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity duration-200">
-                  <Image
-                    src="/shots/st anderws uni.png"
-                    alt="University of St Andrews"
-                    width={100}
-                    height={50}
-                    className="h-8 w-auto"
-                  />
-                  <span className="text-xs text-[#64748B] font-medium hidden sm:block whitespace-pre-line">{hero.trust}</span>
-                </Link>
-                <Link href="https://www.nes.scot.nhs.uk/" target="_blank" className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity duration-200">
-                  <Image
-                    src="/logo/NES_logo.jpg"
-                    alt="NHS Education for Scotland"
-                    width={100}
-                    height={50}
-                    className="h-9 w-auto rounded"
-                  />
-                  <span className="text-xs text-[#64748B] font-medium hidden sm:block whitespace-pre-line">{hero.trustNes}</span>
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Right column — Hero Video */}
-            <motion.div
-              className="flex justify-center lg:justify-end"
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-              viewport={{ once: true }}
+          {/* CTA */}
+          <motion.div
+            className="mb-10 flex justify-center"
+            {...fadeUp}
+            transition={fadeUpTransition(0.4)}
+          >
+            <Button
+              as={Link}
+              href="/book-demo"
+              size="lg"
+              className="bg-[#0891B2] text-white hover:bg-[#0E7490] px-8 py-3 rounded-xl font-medium text-base shadow-clay-sm w-full sm:w-auto"
+              startContent={<Play className="w-4 h-4" />}
             >
-              <div
-                className="clay-card overflow-hidden w-full max-w-[340px] sm:max-w-[380px] relative cursor-pointer group"
-                onClick={handleVideoClick}
-              >
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto"
-                  key={isArabic ? 'ar' : 'en'}
-                >
-                  <source src={isArabic ? '/videos/hero-ar.mp4' : '/videos/hero-en.mp4'} type="video/mp4" />
-                </video>
-                {/* Play/Pause overlay — visible on hover when playing, always visible when paused */}
-                <div className={`absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity duration-200 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-                  <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                    {isPlaying ? (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="#134E4A"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
-                    ) : (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="#134E4A"><polygon points="8,4 20,12 8,20" /></svg>
-                    )}
-                  </div>
-                </div>
-                {/* Muted indicator — tap to unmute hint */}
-                {isMuted && isPlaying && (
-                  <div className="absolute bottom-3 right-3 px-2.5 py-1.5 rounded-full bg-black/50 text-white text-xs flex items-center gap-1.5">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" /><line x1="23" y1="9" x2="17" y2="15" /><line x1="17" y1="9" x2="23" y2="15" /></svg>
-                    <span>{t.tapForSound}</span>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </div>
+              {hero.cta1}
+            </Button>
+          </motion.div>
+
+          {/* Trust Badges */}
+          <motion.div
+            className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3"
+            {...fadeUp}
+            transition={fadeUpTransition(0.5)}
+          >
+            <Link href="https://www.st-andrews.ac.uk/medicine/" target="_blank" className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity duration-200">
+              <Image
+                src="/shots/st anderws uni.png"
+                alt="University of St Andrews"
+                width={100}
+                height={50}
+                className="h-8 w-auto"
+              />
+              <span className="text-xs text-[#64748B] font-medium hidden sm:block whitespace-pre-line text-left">{hero.trust}</span>
+            </Link>
+            <Link href="https://www.nes.scot.nhs.uk/" target="_blank" className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity duration-200">
+              <Image
+                src="/logo/NES_logo.jpg"
+                alt="NHS Education for Scotland"
+                width={100}
+                height={50}
+                className="h-9 w-auto rounded"
+              />
+              <span className="text-xs text-[#64748B] font-medium hidden sm:block whitespace-pre-line text-left">{hero.trustNes}</span>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
