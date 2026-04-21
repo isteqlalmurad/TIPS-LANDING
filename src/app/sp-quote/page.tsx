@@ -358,6 +358,9 @@ export default function PricingPage() {
                           <InfoTip breakdown={breakdown} budget={budget} />
                         </div>
                       </div>
+                      <p className="text-[10px] text-[#94A3B8] italic text-center mt-2 leading-snug">
+                        Max if budget is spent on one mode only. Mix freely across all three.
+                      </p>
                     </div>
                   );
                 })()}
