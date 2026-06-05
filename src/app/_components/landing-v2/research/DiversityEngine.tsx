@@ -67,7 +67,7 @@ export function DiversityEngine() {
                 marginBottom: 24,
               }}
             >
-              We discovered AI's diversity problem.{" "}
+              We discovered AI&rsquo;s diversity problem.{" "}
               <em style={{ fontStyle: "italic", color: "var(--v2-cyan-deep)" }}>
                 Then we built the fix.
               </em>
