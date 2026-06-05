@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env.local
+
+# local tooling / agent artifacts
+.codex/
+.playwright-mcp/
+
+# local research notes (kept out of the repo)
+competitor-research/
+
+# loose scratch screenshots / reference images at repo root
+/*.png
+/*.jpeg
+/*.jpg
