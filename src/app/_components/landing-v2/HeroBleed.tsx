@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { PLAY_FOUNDER_FILM_EVENT } from "@/app/_components/landing-v2/FoundersFilm";
 
 /**
  * Archangels-style bleed hero with white type floating top-left.
@@ -335,8 +336,11 @@ export function HeroBleed() {
               Book a demo
               <ArrowRight size={16} strokeWidth={2} />
             </Link>
-            <Link
-              href="#tour"
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new Event(PLAY_FOUNDER_FILM_EVENT));
+              }}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -349,12 +353,13 @@ export function HeroBleed() {
                 border: "1px solid rgba(255, 255, 255, 0.35)",
                 fontSize: 15,
                 fontWeight: 500,
-                textDecoration: "none",
+                cursor: "pointer",
                 letterSpacing: "0.01em",
+                fontFamily: "inherit",
               }}
             >
               See in action
-            </Link>
+            </button>
           </div>
 
           {/* Trust logos under the CTAs — ported from v2, treated for dark hero.

@@ -80,7 +80,7 @@ export function ResearchBlock() {
           transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
             gap: 20,
             marginBottom: 32,
           }}
@@ -161,11 +161,6 @@ export function ResearchBlock() {
         .v2-research-card:hover {
           border-color: var(--v2-ink) !important;
           transform: translateY(-2px);
-        }
-        @media (max-width: 900px) {
-          .v2-research-grid {
-            grid-template-columns: 1fr !important;
-          }
         }
       `}</style>
     </section>
