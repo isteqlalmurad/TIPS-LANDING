@@ -48,7 +48,7 @@ export function TrustStripV3() {
       style={{
         paddingTop: 80,
         paddingBottom: 80,
-        background: "var(--v2-paper)",
+        background: "var(--v2-paper-deep)",
         position: "relative",
         // Hard cut from dark hero — borderTop deliberately omitted so the
         // section change reads as a chapter break, not a continuation.
