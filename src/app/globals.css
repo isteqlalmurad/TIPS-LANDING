@@ -79,3 +79,216 @@ html {
 .calendly-inline-widget iframe {
   border-radius: 16px;
 }
+
+/* =========================================================================
+   LANDING v2 — editorial, institutional aesthetic
+   Scoped to .v2-page so it does not affect the rest of the site.
+   ========================================================================= */
+.v2-page {
+  /* Colour */
+  --v2-paper: #FAF8F4;
+  --v2-paper-deep: #F3F0E8;
+  --v2-ink: #0E1A24;
+  --v2-ink-muted: #4A5664;
+  --v2-ink-faint: #8A93A0;
+  --v2-rule: #E5E1D8;
+  --v2-rule-soft: #EFEBE2;
+  --v2-cyan: #0891B2;
+  --v2-cyan-deep: #075A75;
+  --v2-cyan-wash: #EDF8FB;
+  --v2-marker: #F5C518;
+
+  /* Typography */
+  --v2-font-display: var(--font-source-serif), Georgia, serif;
+  --v2-font-body: var(--font-inter), system-ui, sans-serif;
+  --v2-font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --v2-text-display-xl: clamp(48px, 7vw, 88px);
+  --v2-text-display-lg: clamp(36px, 5vw, 60px);
+  --v2-text-display-md: clamp(26px, 3vw, 36px);
+  --v2-text-body-lg: 20px;
+  --v2-text-body: 17px;
+  --v2-text-small: 14px;
+  --v2-text-caption: 12px;
+
+  /* Spacing */
+  --v2-space-section: clamp(96px, 12vw, 160px);
+  --v2-space-block: clamp(48px, 6vw, 80px);
+  --v2-content-max: 1200px;
+  --v2-prose-max: 680px;
+
+  background: var(--v2-paper);
+  color: var(--v2-ink);
+  font-family: var(--v2-font-body);
+  font-size: var(--v2-text-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern", "ss01", "cv11";
+}
+
+.v2-page * {
+  box-sizing: border-box;
+}
+
+.v2-page h1, .v2-page h2, .v2-page h3, .v2-page h4 {
+  font-family: var(--v2-font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--v2-ink);
+  line-height: 1.1;
+}
+
+.v2-page p {
+  font-family: var(--v2-font-body);
+  color: var(--v2-ink);
+}
+
+/* Container helpers */
+.v2-container {
+  max-width: var(--v2-content-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .v2-container {
+    padding: 0 40px;
+  }
+}
+
+.v2-prose {
+  max-width: var(--v2-prose-max);
+}
+
+/* Hairline rule */
+.v2-rule {
+  border-top: 1px solid var(--v2-rule);
+}
+
+/* Eyebrow label */
+.v2-eyebrow {
+  font-family: var(--v2-font-body);
+  font-size: var(--v2-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--v2-ink-muted);
+}
+
+/* Citation / footnote text */
+.v2-caption {
+  font-family: var(--v2-font-mono);
+  font-size: var(--v2-text-caption);
+  color: var(--v2-ink-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Buttons */
+.v2-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 4px;
+  font-family: var(--v2-font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  white-space: nowrap;
+}
+
+.v2-btn-primary {
+  background: var(--v2-ink);
+  color: var(--v2-paper);
+}
+.v2-btn-primary:hover {
+  background: var(--v2-cyan-deep);
+}
+
+.v2-btn-secondary {
+  background: transparent;
+  color: var(--v2-ink);
+  border-color: var(--v2-rule);
+}
+.v2-btn-secondary:hover {
+  border-color: var(--v2-ink);
+}
+
+/* Screenshot plate */
+.v2-screenshot {
+  background: var(--v2-cyan-wash);
+  border: 1px solid var(--v2-rule);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.v2-screenshot img,
+.v2-screenshot video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+
+/* Section padding */
+.v2-section {
+  padding: var(--v2-space-section) 0;
+}
+.v2-section-tight {
+  padding: var(--v2-space-block) 0;
+}
+
+@media (max-width: 980px) {
+  .about-story-grid,
+  .v3-story-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .v3-story-team-grid,
+  .about-people-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .v3-story-footer {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .v3-story-team-grid,
+  .about-people-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Subtle scroll fade-up — replaces our framer presets where we want CSS-only */
+@media (prefers-reduced-motion: no-preference) {
+  .v2-fade-up {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1),
+                transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .v2-fade-up.in-view {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* CSS-only fade-in for hero elements (more reliable than Framer Motion in headless renders) */
+@keyframes v2-fade-in-kf {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.v2-fade-in {
+  animation: v2-fade-in-kf 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v2-fade-in { animation: none; opacity: 1; transform: none; }
+}

@@ -829,5 +829,3 @@ function TermCard({ icon: Icon, title, body }: { icon: typeof Calendar; title: s
     </div>
   );
 }
-
-
