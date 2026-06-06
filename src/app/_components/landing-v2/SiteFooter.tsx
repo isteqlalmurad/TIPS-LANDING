@@ -16,7 +16,7 @@ export function SiteFooter() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1.4fr 1fr 1fr 1fr",
+            gridTemplateColumns: "1.4fr 1fr 1fr 1fr 1fr",
             gap: 48,
             marginBottom: 48,
           }}
@@ -88,6 +88,34 @@ export function SiteFooter() {
 
           <div>
             <p className="v2-eyebrow" style={{ marginBottom: 14 }}>
+              Legal
+            </p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+              <li>
+                <Link href="/legal/privacy-policy" style={{ fontSize: 13, color: "var(--v2-ink)", textDecoration: "none" }}>
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/legal/terms-of-service" style={{ fontSize: 13, color: "var(--v2-ink)", textDecoration: "none" }}>
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link href="/legal/cookie-policy" style={{ fontSize: 13, color: "var(--v2-ink)", textDecoration: "none" }}>
+                  Cookie Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/legal/data-processing-agreement" style={{ fontSize: 13, color: "var(--v2-ink)", textDecoration: "none" }}>
+                  Data Processing Agreement
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p className="v2-eyebrow" style={{ marginBottom: 14 }}>
               Contact
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
@@ -120,6 +148,20 @@ export function SiteFooter() {
         >
           <p style={{ fontSize: 12, color: "var(--v2-ink-muted)", margin: 0 }}>
             &copy; 2026 SimPatient. All rights reserved.
+          </p>
+          <p
+            style={{
+              fontSize: 12,
+              color: "var(--v2-ink-muted)",
+              margin: 0,
+              lineHeight: 1.5,
+              maxWidth: 640,
+            }}
+          >
+            SimPatient is a trading name of St Andrews Medical Innovations
+            Limited, a company registered in Scotland (company number SC705314).
+            Registered office: Walter Bower House, Main Street, Guardbridge, St
+            Andrews, Fife, KY16 0US.
           </p>
         </div>
       </div>
