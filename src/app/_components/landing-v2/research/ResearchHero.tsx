@@ -143,7 +143,7 @@ export function ResearchHero() {
           className="v3-research-stat-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: "repeat(3, 1fr)",
             gap: 1,
             background: "rgba(255, 255, 255, 0.12)",
             border: "1px solid rgba(255, 255, 255, 0.12)",
@@ -164,14 +164,9 @@ export function ResearchHero() {
               sub: "every link on this page is a verifiable DOI",
             },
             {
-              n: "500+",
+              n: "700+",
               label: "Medical students",
-              sub: "active at the University of St Andrews",
-            },
-            {
-              n: "£261k",
-              label: "Owen Silver Legacy",
-              sub: "research grant via St Andrews School of Medicine",
+              sub: "active at the University of St Andrews and ScotGEM",
             },
           ].map((stat) => (
             <div

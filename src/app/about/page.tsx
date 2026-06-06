@@ -8,24 +8,40 @@ const people = [
     photo: "/profiles/Dr Andrew O'Malley.jpeg",
     thread:
       "Medical education, simulated-patient teaching, assessment, and the research questions that started the work.",
+    link: {
+      href: "https://andrewomalley.substack.com/",
+      label: "Read his Substack",
+    },
   },
   {
     name: "Mr Sayed Murad",
     photo: "/profiles/Mr Sayed Murad.png",
     thread:
-      "AI engineering, product design, language equity, and the practical work of turning research prototypes into usable tools.",
+      "AI engineering, product design, language equity, and the practical work of building usable tools.",
+    link: {
+      href: "https://www.linkedin.com/in/sayed-murad",
+      label: "Connect on LinkedIn",
+    },
   },
   {
     name: "Dr Sandhya Duggal",
     photo: "/profiles/Dr Sandhya Duggal.jpeg",
     thread:
       "Clinical communication, medical sociology, health research, and the social context around patient conversations.",
+    link: {
+      href: "https://www.linkedin.com/in/dr-sandhya-duggal-775a32238/",
+      label: "Connect on LinkedIn",
+    },
   },
   {
     name: "Dr Xining Wang",
     photo: "/profiles/Dr Xining Wang.webp",
     thread:
       "Human-computer interaction, technology-enhanced learning, evaluation, and evidence that the platform is doing useful work.",
+    link: {
+      href: "https://www.linkedin.com/in/xi-ning-wang-phd-999aa4139/",
+      label: "Connect on LinkedIn",
+    },
   },
 ];
 
@@ -230,6 +246,25 @@ export default function AboutPage() {
                 >
                   {person.thread}
                 </p>
+                {person.link && (
+                  <a
+                    href={person.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 5,
+                      marginTop: 10,
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: "var(--v2-cyan-deep)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {person.link.label} &rarr;
+                  </a>
+                )}
               </article>
             ))}
           </div>

@@ -6,21 +6,37 @@ const people = [
     name: "Dr Andrew O'Malley",
     line: "Senior Lecturer in the School of Medicine, Head of the Education Research Division, and Deputy Programme Director of ScotGEM.",
     photo: "/profiles/Dr Andrew O'Malley.jpeg",
+    link: {
+      href: "https://andrewomalley.substack.com/",
+      label: "Read his Substack",
+    },
   },
   {
     name: "Mr Sayed Murad",
     line: "AI engineering, product design, language equity, and the practical work of building usable tools.",
     photo: "/profiles/Mr Sayed Murad.png",
+    link: {
+      href: "https://www.linkedin.com/in/sayed-murad",
+      label: "Connect on LinkedIn",
+    },
   },
   {
     name: "Dr Sandhya Duggal",
     line: "Clinical communication, medical sociology, health research, and the context around patient conversations.",
     photo: "/profiles/Dr Sandhya Duggal.jpeg",
+    link: {
+      href: "https://www.linkedin.com/in/dr-sandhya-duggal-775a32238/",
+      label: "Connect on LinkedIn",
+    },
   },
   {
     name: "Dr Xining Wang",
     line: "Human-computer interaction, technology-enhanced learning, evaluation, and evidence-led design.",
     photo: "/profiles/Dr Xining Wang.webp",
+    link: {
+      href: "https://www.linkedin.com/in/xi-ning-wang-phd-999aa4139/",
+      label: "Connect on LinkedIn",
+    },
   },
 ];
 
@@ -127,6 +143,25 @@ export function OurStory() {
                 >
                   {person.line}
                 </p>
+                {person.link && (
+                  <a
+                    href={person.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 5,
+                      marginTop: 10,
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: "var(--v2-cyan-deep)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {person.link.label} &rarr;
+                  </a>
+                )}
               </div>
             </article>
           ))}

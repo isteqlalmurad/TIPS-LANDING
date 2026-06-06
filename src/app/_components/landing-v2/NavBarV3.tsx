@@ -10,7 +10,7 @@ const links = [
   { href: "/about", label: "About" },
   {
     href: "https://andrewomalley.substack.com/",
-    label: "AI x MedEd",
+    label: "Substack",
     external: true,
   },
 ];

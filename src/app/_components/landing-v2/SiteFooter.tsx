@@ -125,11 +125,11 @@ export function SiteFooter() {
                 </a>
               </li>
               <li style={{ fontSize: 13, color: "var(--v2-ink-muted)", lineHeight: 1.5 }}>
-                School of Medicine
+                Walter Bower House, Main Street
                 <br />
-                University of St Andrews
+                Guardbridge, St Andrews
                 <br />
-                KY16 9TF
+                Fife, KY16 0US
               </li>
             </ul>
           </div>
@@ -159,9 +159,7 @@ export function SiteFooter() {
             }}
           >
             SimPatient is a trading name of St Andrews Medical Innovations
-            Limited, a company registered in Scotland (company number SC705314).
-            Registered office: Walter Bower House, Main Street, Guardbridge, St
-            Andrews, Fife, KY16 0US.
+            Limited, a company registered in Scotland.
           </p>
         </div>
       </div>

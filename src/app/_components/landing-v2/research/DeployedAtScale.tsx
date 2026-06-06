@@ -173,7 +173,7 @@ export function DeployedAtScale() {
                     letterSpacing: "-0.02em",
                   }}
                 >
-                  500+
+                  700+
                 </div>
                 <p
                   style={{
