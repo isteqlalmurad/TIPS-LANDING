@@ -154,12 +154,12 @@ export function ResearchHero() {
         >
           {[
             {
-              n: "6",
+              n: "9",
               label: "Peer-reviewed papers",
-              sub: "published in BMC, JMIR, PLOS ONE & The Clinical Teacher",
+              sub: "published in BMC, JMIR, PLOS ONE, Advances in Simulation & more",
             },
             {
-              n: "5",
+              n: "7",
               label: "Open access",
               sub: "every link on this page is a verifiable DOI",
             },

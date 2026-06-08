@@ -86,6 +86,41 @@ const PAPERS: Paper[] = [
       "Conference paper at the 1st International Conference on AI in Medical Education (AIMEC 2024). Extended the diversity work to gender representation in clinical LLMs.",
     category: "Responsible AI",
   },
+  {
+    title:
+      "Demographic biases in AI-generated simulated patient cohorts: a comparative analysis against census benchmarks",
+    authors: "Veenhuizen MA, O'Malley AS",
+    journal: "Advances in Simulation",
+    year: "2025",
+    doi: "10.1186/S41077-025-00385-9",
+    finding:
+      "Compared AI-generated simulated patient cohorts against census benchmarks, extending the representation work from imagery to whole patient populations.",
+    category: "Responsible AI",
+    openAccess: true,
+  },
+  {
+    title:
+      "Plan-Do-Study-Act (PDSA) prompting: a structured approach to prompt engineering in medical education",
+    authors: "O'Malley A, Veenhuizen M",
+    journal: "Journal of the Academy of Medical Educators",
+    year: "2026",
+    doi: "10.18573/jaome.11",
+    finding:
+      "Introduces a structured PDSA cycle for prompt engineering, giving educators a repeatable method for building reliable AI teaching tools.",
+    category: "AI in assessment",
+    openAccess: true,
+  },
+  {
+    title:
+      "Reflections on confronting a capacity challenge with an AI-powered patient simulator (SimPatient)",
+    authors: "O'Malley A",
+    journal: "Simulation in Healthcare",
+    year: "2026",
+    doi: "10.1097/SIH.0000000000000890",
+    finding:
+      "A reflective account of deploying SimPatient to meet a real teaching-capacity challenge in undergraduate medical education.",
+    category: "AI in assessment",
+  },
 ];
 
 const CONFERENCE_PAPERS = [
@@ -107,20 +142,8 @@ const CONFERENCE_PAPERS = [
 const UNDER_REVIEW = [
   {
     title:
-      "Confronting a capacity challenge with a Totipotent Interactive Patient Simulator (TIPS)",
-    authors: "O'Malley AS",
-    venue: "Under review at Simulation in Healthcare",
-  },
-  {
-    title:
       "Large language models display human-like social desirability biases in health screening questionnaires",
     authors: "O'Malley AS",
-    venue: "Under review at Computers in Medicine",
-  },
-  {
-    title:
-      "Demographic biases in AI-generated simulated patient cohorts: a comparative analysis against census benchmarks",
-    authors: "O'Malley AS, Veenhuizen MA",
     venue: "Under review at Computers in Medicine",
   },
 ];
@@ -172,9 +195,9 @@ export function OurResearch() {
               marginBottom: 20,
             }}
           >
-            Six peer-reviewed papers.{" "}
+            The only AI simulation software{" "}
             <em style={{ fontStyle: "italic", color: "var(--v2-cyan-deep)" }}>
-              Every DOI clickable.
+              underpinned by scientific research.
             </em>
           </h2>
           <p
@@ -186,7 +209,8 @@ export function OurResearch() {
             }}
           >
             Authored by the St Andrews team. Published in <em>BMC Medical Education</em>,
-            the JMIR family, <em>PLOS ONE</em> and <em>The Clinical Teacher</em>.
+            the JMIR family, <em>PLOS ONE</em>, <em>Advances in Simulation</em>,{" "}
+            <em>Simulation in Healthcare</em> and more.
           </p>
         </div>
 
@@ -322,7 +346,7 @@ export function OurResearch() {
                   marginTop: "auto",
                 }}
               >
-                Read on {paper.journal} <ArrowUpRight size={14} strokeWidth={2} />
+                Read in {paper.journal} <ArrowUpRight size={14} strokeWidth={2} />
               </Link>
             </article>
           ))}

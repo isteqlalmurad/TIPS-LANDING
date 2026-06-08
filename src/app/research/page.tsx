@@ -9,7 +9,7 @@ import { ClosingSections } from "@/app/_components/landing-v2/ClosingSections";
 export const metadata = {
   title: "Research · SimPatient",
   description:
-    "Six peer-reviewed papers. The Diversity Engine. Deployed at the University of St Andrews and ScotGEM. SimPatient is built on real, published research in AI and medical education.",
+    "Nine peer-reviewed papers. The Diversity Engine. Deployed at the University of St Andrews and ScotGEM. SimPatient is built on real, published research in AI and medical education.",
 };
 
 export default function ResearchPage() {

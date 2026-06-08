@@ -283,7 +283,7 @@ export function DiversityEngineV3() {
                 fontWeight: 500,
               }}
             >
-              Read on JMIR AI <ArrowUpRight size={14} strokeWidth={2} />
+              Read in JMIR AI <ArrowUpRight size={14} strokeWidth={2} />
             </Link>
           </div>
         </div>

@@ -67,7 +67,7 @@ export function DiversityEngine() {
                 marginBottom: 24,
               }}
             >
-              We discovered AI&rsquo;s diversity problem.{" "}
+              We quantified AI&rsquo;s diversity problem.{" "}
               <em style={{ fontStyle: "italic", color: "var(--v2-cyan-deep)" }}>
                 Then we built the fix.
               </em>
@@ -83,9 +83,9 @@ export function DiversityEngine() {
                 maxWidth: 560,
               }}
             >
-              In a study published in <em>JMIR AI</em> (2024), our team found that
+              In our landmark study in <em>JMIR AI</em>, our team found that
               DALL-E and Midjourney significantly under-represent darker skin tones
-              when generating medical imagery. The bias was statistically large
+              when generating medical imagery. The bias was significant
               (P&nbsp;&lt;&nbsp;.001) and held across hundreds of generated images.
             </p>
 
@@ -99,11 +99,10 @@ export function DiversityEngine() {
                 maxWidth: 560,
               }}
             >
-              So we built a custom model that injects real demographic distributions
-              into the generation pipeline. The same test against US Census demographics
-              brought the gap from <strong>P&nbsp;&lt;&nbsp;.001</strong> down to{" "}
-              <strong>P&nbsp;=&nbsp;.04</strong>, near-representative output.
-              That model is now the Diversity Engine inside SimPatient.
+              Our method overcomes this bias such that there is no statistically
+              significant difference between AI-generated images and the real-life
+              distribution of skin tones. This approach is now the basis of the
+              SimPatient Diversity Engine.
             </p>
 
             {/* Citation card */}
@@ -167,7 +166,7 @@ export function DiversityEngine() {
                   fontWeight: 500,
                 }}
               >
-                Read on JMIR AI <ArrowUpRight size={14} strokeWidth={2} />
+                Read in JMIR AI <ArrowUpRight size={14} strokeWidth={2} />
               </Link>
             </div>
 
