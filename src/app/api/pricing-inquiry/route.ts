@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
 
   const resend = new Resend(process.env.RESEND_API_KEY);
 
-  const subject = `Pricing inquiry — ${institution}`;
+  const subject = `Pricing inquiry: ${institution}`;
 
   // Plain-text body for the email
   const text = [

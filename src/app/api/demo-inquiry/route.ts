@@ -11,6 +11,17 @@ const TO = parseRecipients(
     "hello@simpatient.co.uk"
 );
 
+// Public https:// image URLs for the confirmation email. Email clients cannot
+// use relative paths or Next's image optimizer, so these must be fully-qualified
+// (e.g. Firebase Storage download URLs). Leave blank to omit the image entirely —
+// the email still reads correctly via the text fallbacks.
+const EMAIL_LOGO_URL =
+  process.env.EMAIL_LOGO_URL ||
+  "https://firebasestorage.googleapis.com/v0/b/tips-db-48de3.firebasestorage.app/o/profile-images%2FSimP_Black.png?alt=media&token=04a1dcc4-f21b-435b-87e2-661182fcfdbb";
+const EMAIL_FOUNDER_PHOTO_URL =
+  process.env.EMAIL_FOUNDER_PHOTO_URL ||
+  "https://firebasestorage.googleapis.com/v0/b/tips-db-48de3.firebasestorage.app/o/profile-images%2FAndrew%20Omalley.png?alt=media&token=65bac3a7-db68-4128-b7f0-f0acbec37a2f";
+
 function parseRecipients(value: string): string[] {
   return value
     .split(",")
@@ -104,7 +115,7 @@ export async function POST(req: NextRequest) {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const subject = `Demo request from demo page — ${institution}`;
+  const subject = `Demo request from demo page: ${institution}`;
 
   const text = [
     "A new demo request has been submitted from the SimPatient demo page.",
@@ -169,7 +180,7 @@ export async function POST(req: NextRequest) {
         from: FROM,
         to: [email],
         replyTo: TO[0],
-        subject: "Thanks for requesting a SimPatient demo",
+        subject: "Thank you for your interest in SimPatient",
         text: buildConfirmText(name),
         html: buildConfirmHtml(name),
       });
@@ -192,29 +203,74 @@ function buildConfirmText(name: string): string {
   return [
     `Hi ${firstName},`,
     "",
-    "Thanks for requesting a SimPatient demo. We've received your details and will come back with next steps shortly.",
+    "Thank you very much for taking an interest in our research and product.",
     "",
-    "If anything urgent comes up, reply to this email or write to hello@simpatient.co.uk.",
+    "I will get back to you within 24 hours. In the meantime, please do let me know what times would work best for you. If you could list a few, that would be a great help.",
     "",
-    "Warm regards,",
-    "The SimPatient team",
+    "Best wishes,",
+    "Andrew O'Malley",
+    "Founder of SimPatient and Deputy Programme Director of ScotGEM",
   ].join("\n");
 }
 
 function buildConfirmHtml(name: string): string {
   const firstName = escapeHtml(name.split(/\s+/)[0] || name);
+
+  // Logo header — icon + "SimPatient" wordmark lockup. Table layout so the two
+  // sit side by side reliably in Outlook. Rendered only when a URL is set.
+  const logoHeader = EMAIL_LOGO_URL
+    ? `
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 0 0 28px;">
+        <tr>
+          <td style="vertical-align: middle; padding-right: 12px;">
+            <img src="${EMAIL_LOGO_URL}" alt="" width="40" height="40" style="display: block; width: 40px; height: 40px;" />
+          </td>
+          <td style="vertical-align: middle;">
+            <span style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: #0E1A24;">SimPatient</span>
+          </td>
+        </tr>
+      </table>`
+    : "";
+
+  // Founder avatar — a small round photo beside the signature. Falls back to a
+  // text-only signature when no URL is configured.
+  const signature = EMAIL_FOUNDER_PHOTO_URL
+    ? `
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 4px 0 0;">
+        <tr>
+          <td style="vertical-align: middle; padding-right: 14px;">
+            <img src="${EMAIL_FOUNDER_PHOTO_URL}" alt="Andrew O'Malley" width="56" height="56" style="display: block; width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+          </td>
+          <td style="vertical-align: middle;">
+            <span style="font-size: 15px; font-weight: 600; color: #0E1A24;">Andrew O&rsquo;Malley</span><br />
+            <span style="font-size: 14px; color: #4A5664;">Founder of SimPatient and Deputy Programme Director of ScotGEM</span>
+          </td>
+        </tr>
+      </table>`
+    : `
+      <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.5; color: #0E1A24;">
+        <strong style="font-weight: 600;">Andrew O&rsquo;Malley</strong><br />
+        <span style="color: #4A5664;">Founder of SimPatient and Deputy Programme Director of ScotGEM</span>
+      </p>`;
+
   return `
-    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #134E4A; background: #FFFFFF;">
-      <h1 style="margin: 0 0 16px; font-family: Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 500; line-height: 1.25; color: #134E4A;">
-        Thanks, ${firstName}. We've got your demo request.
+    <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #0E1A24; background: #FAF8F4;">
+      ${logoHeader}
+      <h1 style="margin: 0 0 20px; font-family: Georgia, 'Times New Roman', serif; font-size: 24px; font-weight: 500; line-height: 1.3; color: #0E1A24;">
+        Hi ${firstName},
       </h1>
-      <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: #134E4A;">
-        Our team will review your details and come back with the best next step for your institution.
+      <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.7; color: #0E1A24;">
+        Thank you very much for taking an interest in our research and product.
       </p>
-      <p style="margin: 0; font-size: 13px; line-height: 1.6; color: rgba(19, 78, 74, 0.7);">
-        Anything urgent? Reply to this email, or write to
-        <a href="mailto:hello@simpatient.co.uk" style="color: #0891B2; text-decoration: underline;">hello@simpatient.co.uk</a>.
+      <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.7; color: #0E1A24;">
+        I will get back to you within 24 hours. In the meantime, please do let me
+        know what times would work best for you. If you could list a few, that
+        would be a great help.
       </p>
+      <p style="margin: 0 0 8px; font-size: 15px; line-height: 1.6; color: #0E1A24;">
+        Best wishes,
+      </p>
+      ${signature}
     </div>
   `;
 }
