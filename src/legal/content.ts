@@ -20,10 +20,7 @@
 // To update copy: edit the strings here, NOT the renderer. The
 // renderer is layout-only.
 
-import {
-  subProcessorTableRows,
-  SUB_PROCESSOR_NOTICE_DAYS,
-} from "./sub-processors";
+import { SUB_PROCESSOR_NOTICE_DAYS } from "./sub-processors";
 import { cookieTableRows } from "./cookies";
 
 export type LegalBlock =
@@ -338,16 +335,12 @@ const privacyPolicy: LegalDoc = {
       level: 3,
       blocks: [
         {
-          // Rows sourced from app/legal/sub-processors.ts so this
-          // table, DPA Annex 3, and the /sub-processors page can never
-          // drift apart.
-          type: "table",
-          headers: ["Provider", "Role", "Data", "Region"],
-          rows: subProcessorTableRows(),
+          type: "p",
+          text: "We use a small number of carefully selected sub-processors (for cloud hosting, database and authentication, AI model inference, voice and avatar generation, transactional email, and in-app support) to deliver the Service. Each is bound by a written Data Processing Agreement, processes personal data exclusively on EU/UK infrastructure, and is contractually prohibited from using your data to train AI models.",
         },
         {
           type: "p",
-          text: `An up-to-date list of sub-processors is maintained at simpatient.co.uk/sub-processors. We will notify customers at least ${SUB_PROCESSOR_NOTICE_DAYS} days before adding or replacing a sub-processor where they handle personal data. Institutional customers may object in accordance with their Data Processing Agreement.`,
+          text: `A current, itemised list of our sub-processors (including the specific providers, their role, the data they process, and their processing region) is available to customers and prospective customers on request, by emailing hello@simpatient.co.uk. We will notify customers at least ${SUB_PROCESSOR_NOTICE_DAYS} days before adding or replacing a sub-processor that handles personal data. Institutional customers may object in accordance with their Data Processing Agreement.`,
         },
       ],
     },
@@ -1984,15 +1977,11 @@ const dpa: LegalDoc = {
       blocks: [
         {
           type: "p",
-          text: "As of the effective date of this DPA, SimPatient engages the following Sub-processors:",
+          text: "SimPatient engages a small number of Sub-processors to deliver the Service, across the following categories: cloud hosting and edge delivery; database, authentication and file storage; AI model inference (large language models and speech-to-text); voice synthesis and real-time avatar generation; transactional email; and in-app feedback and support.",
         },
         {
-          // Rows sourced from app/legal/sub-processors.ts (single
-          // source of truth shared with Privacy Policy section 7.1 and
-          // the /sub-processors page).
-          type: "table",
-          headers: ["Sub-processor", "Role", "Data", "Region"],
-          rows: subProcessorTableRows(),
+          type: "p",
+          text: "A current, itemised list of the specific Sub-processors engaged (including each Sub-processor's identity, role, the categories of Customer Personal Data processed, and the processing region) is provided to the Customer on request by emailing hello@simpatient.co.uk, and is kept up to date.",
         },
         {
           type: "p",
@@ -2007,10 +1996,6 @@ const dpa: LegalDoc = {
             "Flow-down of Data Subject rights assistance",
             "Sub-processor transparency",
           ],
-        },
-        {
-          type: "p",
-          text: "An up-to-date list of Sub-processors is maintained at simpatient.co.uk/sub-processors.",
         },
       ],
     },
