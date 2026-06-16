@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { syncLeadToHubspot } from "@/lib/hubspot";
+import { resolveRecipients } from "@/lib/recipients";
 
 const FROM =
   process.env.DEMO_INQUIRY_FROM ||
   process.env.PRICING_INQUIRY_FROM ||
   "SimPatient Demo Requests <hello@simpatient.co.uk>";
-const TO = parseRecipients(
+const TO = resolveRecipients(
   process.env.DEMO_INQUIRY_TO_EMAIL ||
     process.env.PRICING_INQUIRY_TO_EMAIL ||
     "hello@simpatient.co.uk"
@@ -22,12 +24,6 @@ const EMAIL_FOUNDER_PHOTO_URL =
   process.env.EMAIL_FOUNDER_PHOTO_URL ||
   "https://firebasestorage.googleapis.com/v0/b/tips-db-48de3.firebasestorage.app/o/profile-images%2FAndrew%20Omalley.png?alt=media&token=65bac3a7-db68-4128-b7f0-f0acbec37a2f";
 
-function parseRecipients(value: string): string[] {
-  return value
-    .split(",")
-    .map((addr) => addr.trim())
-    .filter((addr) => addr.length > 0);
-}
 
 const MAX_LEN = {
   name: 120,
@@ -130,28 +126,40 @@ export async function POST(req: NextRequest) {
     message ? "What they want to see:" : null,
     message || null,
     "",
+    "Lead added to the pipeline on HubSpot.",
+    "",
     "---",
     `Submitted: ${new Date().toISOString()}`,
   ]
     .filter(Boolean)
     .join("\n");
 
+  const labelCell =
+    "padding: 8px 0; color: #4A5664; font-size: 13px; width: 130px; vertical-align: top;";
+  const valueCell =
+    "padding: 8px 0; color: #0E1A24; font-size: 14px; font-weight: 500; vertical-align: top;";
+
   const html = `
-    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 580px; margin: 0 auto; padding: 24px; color: #134E4A;">
-      <h2 style="margin: 0 0 16px; font-size: 18px; color: #0E7490;">New demo request</h2>
-      <p style="margin: 0 0 24px; font-size: 14px; color: #134E4A;">
-        Submitted via the <strong>SimPatient demo page</strong>.
+    <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; color: #0E1A24; background: #FAF8F4;">
+      <p style="margin: 0 0 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #4A5664;">
+        New demo request
       </p>
-      <table style="width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.5;">
-        <tr><td style="padding: 6px 0; color: #134E4A; opacity: 0.6; width: 130px;">Name</td><td style="padding: 6px 0; font-weight: 500;">${escapeHtml(name)}</td></tr>
-        <tr><td style="padding: 6px 0; color: #134E4A; opacity: 0.6;">Email</td><td style="padding: 6px 0; font-weight: 500;"><a href="mailto:${escapeHtml(email)}" style="color: #0891B2;">${escapeHtml(email)}</a></td></tr>
-        <tr><td style="padding: 6px 0; color: #134E4A; opacity: 0.6;">Institution</td><td style="padding: 6px 0; font-weight: 500;">${escapeHtml(institution)}</td></tr>
-        <tr><td style="padding: 6px 0; color: #134E4A; opacity: 0.6;">Role</td><td style="padding: 6px 0; font-weight: 500;">${escapeHtml(role)}</td></tr>
-        ${programme ? `<tr><td style="padding: 6px 0; color: #134E4A; opacity: 0.6;">Programme</td><td style="padding: 6px 0; font-weight: 500;">${escapeHtml(programme)}</td></tr>` : ""}
-        ${timeline ? `<tr><td style="padding: 6px 0; color: #134E4A; opacity: 0.6;">Timeline</td><td style="padding: 6px 0; font-weight: 500;">${escapeHtml(timeline)}</td></tr>` : ""}
+      <h2 style="margin: 0 0 24px; font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 500; line-height: 1.25; color: #0E1A24;">
+        ${escapeHtml(institution)}
+      </h2>
+      <table style="width: 100%; border-collapse: collapse; line-height: 1.5;">
+        <tr><td style="${labelCell}">Name</td><td style="${valueCell}">${escapeHtml(name)}</td></tr>
+        <tr><td style="${labelCell}">Email</td><td style="${valueCell}"><a href="mailto:${escapeHtml(email)}" style="color: #075A75; text-decoration: none;">${escapeHtml(email)}</a></td></tr>
+        <tr><td style="${labelCell}">Institution</td><td style="${valueCell}">${escapeHtml(institution)}</td></tr>
+        <tr><td style="${labelCell}">Role</td><td style="${valueCell}">${escapeHtml(role)}</td></tr>
+        ${programme ? `<tr><td style="${labelCell}">Programme</td><td style="${valueCell}">${escapeHtml(programme)}</td></tr>` : ""}
+        ${timeline ? `<tr><td style="${labelCell}">Timeline</td><td style="${valueCell}">${escapeHtml(timeline)}</td></tr>` : ""}
       </table>
-      ${message ? `<div style="margin-top: 24px; padding: 16px; background: #F0FDFA; border-left: 3px solid #22D3EE; border-radius: 4px;"><div style="font-size: 11px; color: #134E4A; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">What they want to see</div><div style="font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(message)}</div></div>` : ""}
-      <p style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #E0F2FE; font-size: 12px; color: #134E4A; opacity: 0.5;">
+      ${message ? `<div style="margin-top: 24px; padding: 16px 18px; background: #EDF8FB; border-left: 3px solid #0891B2; border-radius: 4px;"><div style="font-size: 11px; color: #4A5664; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">What they want to see</div><div style="font-size: 14px; line-height: 1.6; color: #0E1A24; white-space: pre-wrap;">${escapeHtml(message)}</div></div>` : ""}
+      <p style="margin-top: 28px; padding: 12px 16px; background: #F3F0E8; border: 1px solid #E5E1D8; border-radius: 4px; font-size: 13px; color: #4A5664;">
+        ✓ Lead added to the pipeline on HubSpot.
+      </p>
+      <p style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #E5E1D8; font-size: 12px; color: #8A93A0;">
         Submitted ${new Date().toUTCString()}
       </p>
     </div>
@@ -186,6 +194,23 @@ export async function POST(req: NextRequest) {
       });
     } catch (confirmErr) {
       console.error("Unexpected error sending demo confirmation:", confirmErr);
+    }
+
+    // Best-effort CRM sync. Dormant unless HUBSPOT_ACCESS_TOKEN is set; never
+    // blocks or fails the form response.
+    try {
+      await syncLeadToHubspot({
+        name,
+        email,
+        institution,
+        role,
+        programme,
+        timeline,
+        message,
+        source: "Website demo form",
+      });
+    } catch (crmErr) {
+      console.error("Unexpected error syncing demo lead to HubSpot:", crmErr);
     }
 
     return NextResponse.json({ ok: true });
