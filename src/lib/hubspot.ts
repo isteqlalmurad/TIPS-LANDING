@@ -28,7 +28,10 @@ const TOKEN = process.env.HUBSPOT_ACCESS_TOKEN || "";
 const PIPELINE_ID = process.env.HUBSPOT_PIPELINE_ID || "default";
 const NEW_INQUIRY_STAGE_ID = process.env.HUBSPOT_NEW_INQUIRY_STAGE_ID || "";
 
-export type LeadSource = "Website demo form" | "Website pricing form";
+export type LeadSource =
+  | "Website demo form"
+  | "Website pricing form"
+  | "Website pilot form";
 
 export interface Lead {
   name: string;
@@ -37,6 +40,8 @@ export interface Lead {
   role: string;
   programme?: string;
   timeline?: string;
+  cohortSize?: string;
+  signOffContact?: string;
   message?: string;
   source: LeadSource;
 }
@@ -128,6 +133,8 @@ async function createDeal(lead: Lead, contactId: string): Promise<void> {
   };
   if (lead.programme) customProperties.programme__cohort = lead.programme;
   if (lead.timeline) customProperties.timeline = lead.timeline;
+  if (lead.cohortSize) customProperties.cohort_size = lead.cohortSize;
+  if (lead.signOffContact) customProperties.sign_off_contact = lead.signOffContact;
   if (lead.message) customProperties.inquiry_message = lead.message;
 
   const association = {
@@ -174,6 +181,8 @@ async function logNote(lead: Lead, contactId: string): Promise<void> {
     `Role: ${lead.role}`,
     lead.programme ? `Programme: ${lead.programme}` : null,
     lead.timeline ? `Timeline: ${lead.timeline}` : null,
+    lead.cohortSize ? `Cohort size: ${lead.cohortSize}` : null,
+    lead.signOffContact ? `Sign-off contact: ${lead.signOffContact}` : null,
     lead.message ? `\nMessage:\n${lead.message}` : null,
   ].filter(Boolean);
 

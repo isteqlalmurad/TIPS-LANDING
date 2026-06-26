@@ -230,6 +230,8 @@ function buildConfirmText(name: string): string {
     "",
     "Thank you very much for taking an interest in our research and product.",
     "",
+    "Regarding pricing: each cohort is unique, and so is our pricing. We'll put together a proposal tailored to your programme once we've spoken.",
+    "",
     "I will get back to you within 24 hours. In the meantime, please do let me know what times would work best for you. If you could list a few, that would be a great help.",
     "",
     "Best wishes,",
@@ -286,6 +288,10 @@ function buildConfirmHtml(name: string): string {
       </h1>
       <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.7; color: #0E1A24;">
         Thank you very much for taking an interest in our research and product.
+      </p>
+      <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.7; color: #0E1A24;">
+        Regarding pricing: each cohort is unique, and so is our pricing. We&rsquo;ll
+        put together a proposal tailored to your programme once we&rsquo;ve spoken.
       </p>
       <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.7; color: #0E1A24;">
         I will get back to you within 24 hours. In the meantime, please do let me

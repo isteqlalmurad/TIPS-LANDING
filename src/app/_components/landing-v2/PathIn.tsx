@@ -116,7 +116,7 @@ export function PathIn() {
               usage, learner sentiment, and rubric performance.
             </p>
             <Link
-              href="/book-demo"
+              href="/request-pilot"
               className="v2-btn"
               style={{ background: "transparent", color: "var(--v2-paper)", border: "1px solid rgba(250, 248, 244, 0.3)" }}
             >

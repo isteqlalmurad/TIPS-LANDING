@@ -3,22 +3,16 @@ import { Resend } from "resend";
 import { syncLeadToHubspot } from "@/lib/hubspot";
 import { resolveRecipients } from "@/lib/recipients";
 
-/**
- * POST /api/pricing-inquiry
- *
- * Receives a pricing-inquiry form submission and emails it to the configured
- * recipient via Resend. Uses the same sending identity as the main SimPatient
- * product app (hello@simpatient.co.uk).
- *
- * Anti-spam: a `website` honeypot field MUST be empty. Bots fill every input
- * they see; real users never see this one. ~80% spam rejection with zero UX cost.
- */
-
 const FROM =
+  process.env.PILOT_INQUIRY_FROM ||
+  process.env.DEMO_INQUIRY_FROM ||
   process.env.PRICING_INQUIRY_FROM ||
-  "SimPatient Inquiries <hello@simpatient.co.uk>";
+  "SimPatient Pilot Requests <hello@simpatient.co.uk>";
 const TO = resolveRecipients(
-  process.env.PRICING_INQUIRY_TO_EMAIL || "hello@simpatient.co.uk"
+  process.env.PILOT_INQUIRY_TO_EMAIL ||
+    process.env.DEMO_INQUIRY_TO_EMAIL ||
+    process.env.PRICING_INQUIRY_TO_EMAIL ||
+    "hello@simpatient.co.uk"
 );
 
 // Public https:// image URLs for the confirmation email. Email clients cannot
@@ -32,13 +26,15 @@ const EMAIL_FOUNDER_PHOTO_URL =
   process.env.EMAIL_FOUNDER_PHOTO_URL ||
   "https://firebasestorage.googleapis.com/v0/b/tips-db-48de3.firebasestorage.app/o/profile-images%2FAndrew%20Omalley.png?alt=media&token=65bac3a7-db68-4128-b7f0-f0acbec37a2f";
 
-// Soft caps — anything beyond these is almost certainly malicious
 const MAX_LEN = {
   name: 120,
   email: 200,
   institution: 200,
-  role: 100,
+  role: 120,
   cohortSize: 40,
+  courseBlock: 200,
+  startDate: 120,
+  signOffContact: 200,
   message: 2000,
 };
 
@@ -48,6 +44,9 @@ type Payload = {
   institution?: string;
   role?: string;
   cohortSize?: string;
+  courseBlock?: string;
+  startDate?: string;
+  signOffContact?: string;
   message?: string;
   website?: string; // honeypot
 };
@@ -57,12 +56,12 @@ function clean(value: unknown, max: number): string {
   return value.trim().slice(0, max);
 }
 
-function isLikelyEmail(s: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+function isLikelyEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-function escapeHtml(s: string): string {
-  return s
+function escapeHtml(value: string): string {
+  return value
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -72,6 +71,7 @@ function escapeHtml(s: string): string {
 
 export async function POST(req: NextRequest) {
   let body: Payload;
+
   try {
     body = (await req.json()) as Payload;
   } catch {
@@ -91,6 +91,9 @@ export async function POST(req: NextRequest) {
   const institution = clean(body.institution, MAX_LEN.institution);
   const role = clean(body.role, MAX_LEN.role);
   const cohortSize = clean(body.cohortSize, MAX_LEN.cohortSize);
+  const courseBlock = clean(body.courseBlock, MAX_LEN.courseBlock);
+  const startDate = clean(body.startDate, MAX_LEN.startDate);
+  const signOffContact = clean(body.signOffContact, MAX_LEN.signOffContact);
   const message = clean(body.message, MAX_LEN.message);
 
   if (!name || !email || !institution || !role) {
@@ -99,6 +102,7 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
+
   if (!isLikelyEmail(email)) {
     return NextResponse.json(
       { ok: false, error: "That email address looks invalid." },
@@ -115,20 +119,21 @@ export async function POST(req: NextRequest) {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
+  const subject = `Pilot request: ${institution}`;
 
-  const subject = `Pricing inquiry: ${institution}`;
-
-  // Plain-text body for the email
   const text = [
-    "A new pricing inquiry has been submitted on simpatient.co.uk",
+    "A new pilot request has been submitted on simpatient.co.uk",
     "",
-    `Name:        ${name}`,
-    `Email:       ${email}`,
-    `Institution: ${institution}`,
-    `Role:        ${role}`,
-    cohortSize ? `Cohort size: ${cohortSize}` : null,
+    `Name:          ${name}`,
+    `Email:         ${email}`,
+    `Institution:   ${institution}`,
+    `Role:          ${role}`,
+    cohortSize ? `Cohort size:   ${cohortSize}` : null,
+    courseBlock ? `Course/block:  ${courseBlock}` : null,
+    startDate ? `Target start:  ${startDate}` : null,
+    signOffContact ? `Sign-off:      ${signOffContact}` : null,
     "",
-    message ? "Message:" : null,
+    message ? "Additional notes:" : null,
     message || null,
     "",
     "Lead added to the pipeline on HubSpot.",
@@ -139,16 +144,15 @@ export async function POST(req: NextRequest) {
     .filter(Boolean)
     .join("\n");
 
-  // HTML body — styled to match the SimPatient brand (paper/ink, hairlines).
   const labelCell =
-    "padding: 8px 0; color: #4A5664; font-size: 13px; width: 130px; vertical-align: top;";
+    "padding: 8px 0; color: #4A5664; font-size: 13px; width: 140px; vertical-align: top;";
   const valueCell =
     "padding: 8px 0; color: #0E1A24; font-size: 14px; font-weight: 500; vertical-align: top;";
 
   const html = `
-    <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #0E1A24; background: #FAF8F4;">
+    <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; color: #0E1A24; background: #FAF8F4;">
       <p style="margin: 0 0 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #4A5664;">
-        New pricing inquiry
+        New pilot request
       </p>
       <h2 style="margin: 0 0 24px; font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 500; line-height: 1.25; color: #0E1A24;">
         ${escapeHtml(institution)}
@@ -159,8 +163,11 @@ export async function POST(req: NextRequest) {
         <tr><td style="${labelCell}">Institution</td><td style="${valueCell}">${escapeHtml(institution)}</td></tr>
         <tr><td style="${labelCell}">Role</td><td style="${valueCell}">${escapeHtml(role)}</td></tr>
         ${cohortSize ? `<tr><td style="${labelCell}">Cohort size</td><td style="${valueCell}">${escapeHtml(cohortSize)}</td></tr>` : ""}
+        ${courseBlock ? `<tr><td style="${labelCell}">Course / block</td><td style="${valueCell}">${escapeHtml(courseBlock)}</td></tr>` : ""}
+        ${startDate ? `<tr><td style="${labelCell}">Target start date</td><td style="${valueCell}">${escapeHtml(startDate)}</td></tr>` : ""}
+        ${signOffContact ? `<tr><td style="${labelCell}">Sign-off contact</td><td style="${valueCell}">${escapeHtml(signOffContact)}</td></tr>` : ""}
       </table>
-      ${message ? `<div style="margin-top: 24px; padding: 16px 18px; background: #EDF8FB; border-left: 3px solid #0891B2; border-radius: 4px;"><div style="font-size: 11px; color: #4A5664; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Message</div><div style="font-size: 14px; line-height: 1.6; color: #0E1A24; white-space: pre-wrap;">${escapeHtml(message)}</div></div>` : ""}
+      ${message ? `<div style="margin-top: 24px; padding: 16px 18px; background: #EDF8FB; border-left: 3px solid #0891B2; border-radius: 4px;"><div style="font-size: 11px; color: #4A5664; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Additional notes</div><div style="font-size: 14px; line-height: 1.6; color: #0E1A24; white-space: pre-wrap;">${escapeHtml(message)}</div></div>` : ""}
       <p style="margin-top: 28px; padding: 12px 16px; background: #F3F0E8; border: 1px solid #E5E1D8; border-radius: 4px; font-size: 13px; color: #4A5664;">
         ✓ Lead added to the pipeline on HubSpot.
       </p>
@@ -171,7 +178,6 @@ export async function POST(req: NextRequest) {
   `;
 
   try {
-    // 1) Notify the SimPatient team. This MUST succeed.
     const { error } = await resend.emails.send({
       from: FROM,
       to: TO,
@@ -182,52 +188,48 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) {
-      console.error("Resend error on pricing inquiry:", error);
+      console.error("Resend error on pilot inquiry:", error);
       return NextResponse.json(
-        { ok: false, error: "We couldn't send your inquiry. Please email hello@simpatient.co.uk directly." },
+        { ok: false, error: "We couldn't send your pilot request. Please email hello@simpatient.co.uk directly." },
         { status: 502 }
       );
     }
 
-    // 2) Send a confirmation email to the submitter (best-effort).
-    // We don't block on this — if it fails the user still gets the success
-    // response because their inquiry already reached the team.
     try {
-      const confirmText = buildConfirmText(name);
-      const confirmHtml = buildConfirmHtml(name);
-      const { error: confirmError } = await resend.emails.send({
+      await resend.emails.send({
         from: FROM,
         to: [email],
         replyTo: TO[0],
-        subject: "Thanks for reaching out to SimPatient",
-        text: confirmText,
-        html: confirmHtml,
+        subject: "Your SimPatient pilot request",
+        text: buildConfirmText(name),
+        html: buildConfirmHtml(name),
       });
-      if (confirmError) {
-        console.error("Resend error sending confirmation to submitter:", confirmError);
-      }
     } catch (confirmErr) {
-      console.error("Unexpected error sending submitter confirmation:", confirmErr);
+      console.error("Unexpected error sending pilot confirmation:", confirmErr);
     }
 
-    // Best-effort CRM sync. Dormant unless HUBSPOT_ACCESS_TOKEN is set.
+    // Best-effort CRM sync. Dormant unless HUBSPOT_ACCESS_TOKEN is set; never
+    // blocks or fails the form response.
     try {
       await syncLeadToHubspot({
         name,
         email,
         institution,
         role,
-        programme: cohortSize ? `Cohort size: ${cohortSize}` : undefined,
+        programme: courseBlock,
+        timeline: startDate,
+        cohortSize,
+        signOffContact,
         message,
-        source: "Website pricing form",
+        source: "Website pilot form",
       });
     } catch (crmErr) {
-      console.error("Unexpected error syncing pricing lead to HubSpot:", crmErr);
+      console.error("Unexpected error syncing pilot lead to HubSpot:", crmErr);
     }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("Unexpected error sending pricing inquiry:", err);
+    console.error("Unexpected error sending pilot inquiry:", err);
     return NextResponse.json(
       { ok: false, error: "Something went wrong. Please try again." },
       { status: 500 }
@@ -235,16 +237,16 @@ export async function POST(req: NextRequest) {
   }
 }
 
-/* ─── Submitter confirmation email ─────────────────────────────────────── */
-
 function buildConfirmText(name: string): string {
   const firstName = name.split(/\s+/)[0] || name;
   return [
     `Hi ${firstName},`,
     "",
-    "Thank you very much for taking an interest in our research and product.",
+    "Thanks for requesting a pilot of SimPatient.",
     "",
-    "Regarding pricing: each cohort is unique, and so is our pricing. We'll put together a proposal tailored to your programme once we've spoken, within one working day.",
+    "A pilot runs for 4 weeks with a single cohort. We'll help you set up your org, import your existing marking scheme, and at the end share a written report measuring usage, learner sentiment, and rubric performance.",
+    "",
+    "I will get back to you within 24 hours to confirm scope and a start date.",
     "",
     "If anything urgent comes up, just reply to this email or write to hello@simpatient.co.uk and we'll come straight back to you.",
     "",
@@ -297,12 +299,15 @@ function buildConfirmHtml(name: string): string {
         Hi ${firstName},
       </h1>
       <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.7; color: #0E1A24;">
-        Thank you very much for taking an interest in our research and product.
+        Thanks for requesting a pilot of SimPatient.
       </p>
       <p style="margin: 0 0 18px; font-size: 15px; line-height: 1.7; color: #0E1A24;">
-        Regarding pricing: each cohort is unique, and so is our pricing. We&rsquo;ll
-        put together a proposal tailored to your programme once we&rsquo;ve spoken,
-        within one working day.
+        A pilot runs for 4 weeks with a single cohort. We&rsquo;ll help you set up
+        your org, import your existing marking scheme, and at the end share a
+        written report measuring usage, learner sentiment, and rubric performance.
+      </p>
+      <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.7; color: #0E1A24;">
+        I will get back to you within 24 hours to confirm scope and a start date.
       </p>
       <p style="margin: 0 0 8px; font-size: 15px; line-height: 1.6; color: #0E1A24;">
         Best wishes,
